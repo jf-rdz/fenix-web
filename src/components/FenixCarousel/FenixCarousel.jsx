@@ -9,6 +9,7 @@ import HomeScene from "./scenes/HomeScene";
 import SalesScene from "./scenes/SalesScene";
 import InventoryMobileScene from "./scenes/InventoryMobileScene";
 import OrderServiceScene from "./scenes/OrderServiceScene";
+import ReportsScene from "./scenes/ReportsScene";
 
 const slides = [
   {
@@ -36,6 +37,13 @@ const slides = [
     id: "order-service",
     label: "Órdenes de Servicio",
     component: OrderServiceScene,
+    duration: 10000,
+  },
+
+  {
+    id: "reports",
+    label: "Reportes",
+    component: ReportsScene,
     duration: 10000,
   },
 ];

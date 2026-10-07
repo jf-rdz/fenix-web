@@ -1,0 +1,285 @@
+/* ==========================================================
+   REPORTS SCENE — INTERACTIONS
+   ========================================================== */
+
+
+/* ==========================================================
+   1. REPORT OPTION FOCUS
+   ========================================================== */
+
+.reports-report-option--focus {
+  animation:
+    reportsOptionFocus
+    850ms
+    var(--ease-fenix)
+    infinite
+    alternate;
+}
+
+
+@keyframes reportsOptionFocus {
+
+  from {
+    transform:
+      scale(1);
+
+    box-shadow:
+      0 0.45em 1em
+      rgba(
+        29,
+        41,
+        75,
+        0.13
+      );
+  }
+
+
+  to {
+    transform:
+      scale(1.012);
+
+    box-shadow:
+      0 0.85em 1.8em
+      rgba(
+        11,
+        147,
+        171,
+        0.28
+      );
+  }
+
+}
+
+
+/* ==========================================================
+   2. METRIC FOCUS
+   ========================================================== */
+
+.report-metric--focus {
+  animation:
+    reportsMetricPulse
+    900ms
+    var(--ease-fenix)
+    both;
+
+  box-shadow:
+    0 0.9em 2em
+    rgba(
+      11,
+      147,
+      171,
+      0.25
+    );
+}
+
+
+@keyframes reportsMetricPulse {
+
+  0% {
+    transform:
+      scale(1);
+  }
+
+
+  45% {
+    transform:
+      scale(1.04);
+  }
+
+
+  100% {
+    transform:
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================================
+   3. METRIC VALUES
+   ========================================================== */
+
+.reports-scene--report
+.report-metric__value {
+  animation:
+    reportsMetricValueIn
+    800ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes reportsMetricValueIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(5px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* ==========================================================
+   4. TREND FOCUS
+   ========================================================== */
+
+.reports-trend--focus {
+  animation:
+    reportsTrendFocus
+    1050ms
+    var(--ease-fenix)
+    both;
+
+  box-shadow:
+    0 0.85em 1.9em
+    rgba(
+      11,
+      147,
+      171,
+      0.16
+    );
+}
+
+
+@keyframes reportsTrendFocus {
+
+  0% {
+    transform:
+      scale(1);
+  }
+
+
+  42% {
+    transform:
+      scale(1.018);
+  }
+
+
+  100% {
+    transform:
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================================
+   5. TREND DOT
+   ========================================================== */
+
+.reports-trend--focus
+.reports-chart__dot {
+  animation:
+    reportsChartDotPulse
+    850ms
+    ease
+    infinite;
+}
+
+
+@keyframes reportsChartDotPulse {
+
+  0% {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(1);
+  }
+
+
+  50% {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(1.16);
+  }
+
+
+  100% {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================================
+   6. TOOLTIP
+   ========================================================== */
+
+.reports-scene--report
+.reports-chart__tooltip {
+  animation:
+    reportsTooltipIn
+    600ms
+    var(--ease-fenix)
+    550ms
+    both;
+}
+
+
+@keyframes reportsTooltipIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(6px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* ==========================================================
+   7. DETAIL VALUE
+   ========================================================== */
+
+.reports-scene--report
+.reports-detail__row strong {
+  animation:
+    reportsDetailValueIn
+    850ms
+    var(--ease-fenix)
+    500ms
+    both;
+}
+
+
+@keyframes reportsDetailValueIn {
+
+  from {
+    opacity: 0;
+  }
+
+
+  to {
+    opacity: 1;
+  }
+
+}

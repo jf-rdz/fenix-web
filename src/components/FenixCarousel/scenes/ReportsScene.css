@@ -1,0 +1,1616 @@
+/* ==========================================================
+   REPORTS SCENE
+   ========================================================== */
+
+
+/* ==========================================================
+   1. SCENE
+   ========================================================== */
+
+.reports-scene {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background:
+    var(--fenix-background);
+
+  color:
+    var(--fenix-navy);
+}
+
+
+/* ==========================================================
+   2. CAMERA
+   ========================================================== */
+
+.reports-camera {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+}
+
+
+.reports-camera__stage {
+  width: 100%;
+  height: 100%;
+
+  transform-origin:
+    66% 55%;
+
+  animation:
+    reportsCameraSequence
+    10s
+    var(--ease-fenix)
+    both;
+}
+
+
+/* ==========================================================
+   3. APP
+   ========================================================== */
+
+.reports-app {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+
+  grid-template-rows:
+    11%
+    89%;
+
+  font-size:
+    clamp(
+      6px,
+      0.62vw,
+      10px
+    );
+
+  background:
+    var(--fenix-background);
+}
+
+
+.reports-app__body {
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    18.5%
+    81.5%;
+}
+
+
+/* ==========================================================
+   4. SIDEBAR
+   ========================================================== */
+
+.reports-sidebar {
+  min-height: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background:
+    #f8fafc;
+
+  border-right:
+    1px solid
+    #dce3ec;
+
+  opacity: 0;
+
+  transform:
+    translateX(-16px);
+
+  animation:
+    reportsSidebarIn
+    650ms
+    var(--ease-fenix)
+    350ms
+    forwards;
+}
+
+
+.reports-sidebar__nav {
+  padding:
+    0.95em
+    0.65em;
+}
+
+
+.reports-sidebar__item {
+  min-height:
+    4em;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.9em;
+
+  padding:
+    0 0.8em;
+
+  border-radius:
+    0.65em;
+
+  color:
+    #344054;
+
+  font-size:
+    0.9em;
+}
+
+
+.reports-sidebar__item svg {
+  flex:
+    0 0 auto;
+}
+
+
+.reports-sidebar__item--active {
+  background:
+    var(--fenix-navy);
+
+  color:
+    #ffffff;
+}
+
+
+.reports-sidebar__account {
+  margin-top: auto;
+
+  padding:
+    1.15em
+    0.65em
+    0.9em;
+
+  border-top:
+    1px solid
+    #d6dee8;
+}
+
+
+.reports-sidebar__account-title {
+  display: block;
+
+  padding:
+    0 0.8em
+    0.55em;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    0.88em;
+
+  letter-spacing:
+    0.15em;
+}
+
+
+/* ==========================================================
+   5. WORKSPACE
+   ========================================================== */
+
+.reports-workspace {
+  position: relative;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+
+  background:
+    var(--fenix-background);
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  animation:
+    reportsWorkspaceIn
+    650ms
+    var(--ease-fenix)
+    650ms
+    forwards;
+}
+
+
+.reports-view {
+  position: absolute;
+
+  inset: 0;
+
+  padding:
+    2em
+    3.15em
+    1.45em;
+
+  opacity: 0;
+
+  transform:
+    translateY(10px)
+    scale(0.995);
+
+  pointer-events: none;
+
+  transition:
+    opacity
+      460ms
+      var(--ease-fenix),
+
+    transform
+      460ms
+      var(--ease-fenix);
+}
+
+
+.reports-view--active {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  pointer-events: auto;
+}
+
+
+/* ==========================================================
+   6. PAGE TITLE
+   ========================================================== */
+
+.reports-page-title {
+  min-height:
+    4.5em;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.7em;
+}
+
+
+.reports-page-title__back {
+  width:
+    1.8em;
+
+  height:
+    1.8em;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    2px solid
+    var(--fenix-turquoise);
+
+  border-radius:
+    999px;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-size:
+    1.15em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-page-title strong {
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    2em;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   7. OVERVIEW
+   ========================================================== */
+
+.reports-overview {
+  height: 100%;
+}
+
+
+.reports-overview__body {
+  height:
+    calc(
+      100% - 4.5em
+    );
+
+  overflow: hidden;
+
+  padding:
+    1.3em;
+
+  border:
+    1px solid
+    #d8e0ea;
+
+  border-radius:
+    0.65em;
+
+  background:
+    #f9fbfd;
+
+  box-shadow:
+    0 0.35em 1em
+    rgba(
+      29,
+      41,
+      75,
+      0.06
+    );
+}
+
+
+/* ==========================================================
+   8. REPORT CATEGORIES
+   ========================================================== */
+
+.reports-category {
+  overflow: hidden;
+
+  margin-bottom:
+    1.1em;
+
+  border:
+    1px solid
+    #d8e0ea;
+
+  border-radius:
+    0.7em;
+
+  background:
+    #ffffff;
+}
+
+
+.reports-category__header {
+  min-height:
+    5.2em;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    0 1.25em;
+
+  color:
+    var(--fenix-navy);
+
+  background:
+    #f8fafc;
+}
+
+
+.reports-category__header strong {
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1.05em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-category__header span {
+  color:
+    var(--fenix-turquoise);
+
+  font-size:
+    1.35em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-category__header--commercial {
+  background:
+    var(--fenix-navy);
+
+  color:
+    #ffffff;
+
+  border-left:
+    4px solid
+    var(--fenix-turquoise);
+}
+
+
+.reports-category__header--commercial span {
+  color:
+    #ffffff;
+}
+
+
+.reports-category__content {
+  max-height: 0;
+
+  overflow: hidden;
+
+  padding:
+    0 0.7em;
+
+  transition:
+    max-height
+      500ms
+      var(--ease-fenix),
+
+    padding
+      500ms
+      var(--ease-fenix);
+}
+
+
+.reports-category--expanded
+.reports-category__content {
+  max-height:
+    34em;
+
+  padding:
+    0.8em 0.7em
+    0.7em;
+}
+
+
+.reports-category--simple {
+  margin-bottom:
+    1em;
+}
+
+
+/* ==========================================================
+   9. REPORT OPTIONS
+   ========================================================== */
+
+.reports-report-option {
+  margin-bottom:
+    0.85em;
+
+  padding:
+    1.15em
+    1.25em;
+
+  border-radius:
+    0.65em;
+
+  background:
+    var(--fenix-navy);
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 0.45em 1em
+    rgba(
+      29,
+      41,
+      75,
+      0.13
+    );
+}
+
+
+.reports-report-option:last-child {
+  margin-bottom: 0;
+}
+
+
+.reports-report-option strong {
+  display: block;
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-report-option p {
+  margin:
+    0.45em 0 0;
+
+  font-size:
+    0.89em;
+
+  line-height:
+    1.4;
+}
+
+
+/* ==========================================================
+   10. PERIOD REPORT
+   ========================================================== */
+
+.reports-period {
+  height: 100%;
+}
+
+
+/* ==========================================================
+   11. FILTER PANEL
+   ========================================================== */
+
+.reports-period__filters {
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      0.9fr
+    )
+    minmax(
+      0,
+      1.1fr
+    );
+
+  gap:
+    1.4em;
+
+  padding:
+    1.2em
+    1.4em;
+
+  border:
+    1px solid
+    #d8e0ea;
+
+  border-radius:
+    0.7em;
+
+  background:
+    #f9fbfd;
+}
+
+
+.reports-period__dates {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:
+    0.9em;
+
+  align-items: end;
+}
+
+
+.reports-date strong,
+.reports-group > strong {
+  display: block;
+
+  margin-bottom:
+    0.55em;
+
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    0.92em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-date__input {
+  min-height:
+    3.2em;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.65em;
+
+  padding:
+    0 0.85em;
+
+  border:
+    1px solid
+    #d4dde8;
+
+  border-radius:
+    0.45em;
+
+  background:
+    #ffffff;
+
+  color:
+    #4c596a;
+}
+
+
+.reports-date__input em {
+  font-style: normal;
+
+  font-size:
+    0.88em;
+}
+
+
+.reports-date__input small {
+  margin-left: auto;
+
+  color:
+    #344054;
+}
+
+
+.reports-group p {
+  max-width:
+    41em;
+
+  margin:
+    0 0
+    0.75em;
+
+  color:
+    #475569;
+
+  font-size:
+    0.8em;
+
+  line-height:
+    1.4;
+}
+
+
+.reports-group button {
+  min-height:
+    2.8em;
+
+  padding:
+    0 1.2em;
+
+  border: 0;
+
+  border-radius:
+    0.45em;
+
+  background:
+    var(--fenix-turquoise);
+
+  color:
+    #ffffff;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   12. KPI CARDS
+   ========================================================== */
+
+.reports-period__metrics {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap:
+    1em;
+
+  margin-top:
+    1.15em;
+}
+
+
+.report-metric {
+  position: relative;
+
+  min-height:
+    7.4em;
+
+  overflow: hidden;
+
+  padding:
+    1.35em
+    1.25em;
+
+  border-radius:
+    0.7em;
+
+  background:
+    var(--fenix-navy);
+
+  color:
+    #ffffff;
+
+  box-shadow:
+    0 0.5em 1.2em
+    rgba(
+      29,
+      41,
+      75,
+      0.15
+    );
+}
+
+
+.report-metric__title {
+  display: block;
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    0.9em;
+
+  font-weight:
+    700;
+}
+
+
+.report-metric__value {
+  display: block;
+
+  margin-top:
+    0.45em;
+
+  max-width:
+    85%;
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1.95em;
+
+  font-weight:
+    700;
+
+  line-height:
+    1.05;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+
+.report-metric__icon {
+  position: absolute;
+
+  top:
+    0;
+
+  right:
+    0;
+
+  width:
+    4.1em;
+
+  height:
+    4.1em;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius:
+    0 0
+    0 999px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+
+  color:
+    #dce7ff;
+
+  font-size:
+    1.5em;
+}
+
+
+/* ==========================================================
+   13. ANALYSIS GRID
+   ========================================================== */
+
+.reports-period__analysis {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(15em, 0.92fr);
+
+  gap:
+    1.15em;
+
+  margin-top:
+    1.15em;
+}
+
+
+.reports-trend,
+.reports-detail {
+  border:
+    1px solid
+    #d8e0ea;
+
+  border-radius:
+    0.7em;
+
+  background:
+    #f9fbfd;
+
+  box-shadow:
+    0 0.35em 1em
+    rgba(
+      29,
+      41,
+      75,
+      0.06
+    );
+}
+
+
+/* ==========================================================
+   14. TREND
+   ========================================================== */
+
+.reports-trend {
+  padding:
+    1.25em;
+}
+
+
+.reports-trend__title {
+  margin-bottom:
+    1em;
+}
+
+
+.reports-trend__title strong {
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1.1em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-chart {
+  display: grid;
+
+  grid-template-columns:
+    auto 1fr;
+
+  gap:
+    0.75em;
+}
+
+
+.reports-chart__labels {
+  min-height:
+    19em;
+
+  display: grid;
+
+  grid-template-rows:
+    repeat(
+      4,
+      1fr
+    );
+
+  color:
+    #475569;
+
+  font-size:
+    0.78em;
+}
+
+
+.reports-chart__plot {
+  position: relative;
+
+  min-height:
+    19em;
+
+  border-left:
+    1px solid
+    #d4dde8;
+
+  border-bottom:
+    1px solid
+    #d4dde8;
+}
+
+
+.reports-chart__horizontal {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  height:
+    1px;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      #c7d0db
+      0,
+      #c7d0db
+      4px,
+      transparent
+      4px,
+      transparent
+      8px
+    );
+}
+
+
+.reports-chart__horizontal--1 {
+  top:
+    0;
+}
+
+
+.reports-chart__horizontal--2 {
+  top:
+    33.3%;
+}
+
+
+.reports-chart__horizontal--3 {
+  top:
+    66.6%;
+}
+
+
+.reports-chart__vertical {
+  position: absolute;
+
+  top: 0;
+
+  bottom: 0;
+
+  left:
+    52%;
+
+  width:
+    1px;
+
+  background:
+    rgba(
+      126,
+      154,
+      193,
+      0.44
+    );
+}
+
+
+.reports-chart__period {
+  position: absolute;
+
+  left:
+    52%;
+
+  bottom:
+    -2.1em;
+
+  transform:
+    translateX(-50%);
+
+  white-space: nowrap;
+
+  color:
+    #334155;
+
+  font-size:
+    0.82em;
+}
+
+
+.reports-chart__dot {
+  position: absolute;
+
+  left:
+    52%;
+
+  top:
+    16%;
+
+  width:
+    1.35em;
+
+  height:
+    1.35em;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  border-radius:
+    999px;
+
+  background:
+    var(--fenix-turquoise);
+
+  box-shadow:
+    0 0 0
+    0.4em
+    rgba(
+      11,
+      147,
+      171,
+      0.13
+    );
+}
+
+
+.reports-chart__tooltip {
+  position: absolute;
+
+  left:
+    calc(
+      52% + 1em
+    );
+
+  top:
+    25%;
+
+  min-width:
+    15em;
+
+  padding:
+    1em;
+
+  border-radius:
+    0.7em;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 0.8em 1.8em
+    rgba(
+      29,
+      41,
+      75,
+      0.12
+    );
+}
+
+
+.reports-chart__tooltip strong {
+  display: block;
+
+  margin-bottom:
+    0.55em;
+
+  color:
+    #475569;
+
+  font-size:
+    0.92em;
+
+  font-weight:
+    600;
+}
+
+
+.reports-chart__tooltip span {
+  color:
+    var(--fenix-turquoise);
+
+  font-size:
+    0.96em;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   15. DETAIL TABLE
+   ========================================================== */
+
+.reports-detail {
+  overflow: hidden;
+}
+
+
+.reports-detail__header {
+  min-height:
+    4em;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    0 1.1em;
+
+  border-bottom:
+    1px solid
+    #d8e0ea;
+}
+
+
+.reports-detail__header strong {
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1.05em;
+
+  font-weight:
+    700;
+}
+
+
+.reports-detail__header small {
+  min-height:
+    1.9em;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  padding:
+    0 0.6em;
+
+  border:
+    1px solid
+    #d7dee7;
+
+  border-radius:
+    0.4em;
+
+  background:
+    #ffffff;
+
+  color:
+    #475569;
+}
+
+
+.reports-detail__table {
+  padding:
+    0.55em
+    1em;
+}
+
+
+.reports-detail__row {
+  display: grid;
+
+  grid-template-columns:
+    1.2fr
+    1fr
+    0.25fr;
+
+  align-items: start;
+
+  gap:
+    0.4em;
+
+  min-height:
+    4em;
+
+  padding:
+    0.75em
+    0.2em;
+
+  border-bottom:
+    1px solid
+    #e2e8f0;
+
+  color:
+    #172554;
+
+  font-size:
+    0.82em;
+}
+
+
+.reports-detail__row:last-child {
+  border-bottom: 0;
+}
+
+
+.reports-detail__row--header {
+  min-height:
+    2.7em;
+
+  color:
+    #334155;
+
+  font-weight:
+    700;
+}
+
+
+/* ==========================================================
+   16. FINAL MESSAGE
+   ========================================================== */
+
+.reports-scene__message {
+  position: absolute;
+
+  z-index: 30;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding:
+    0 12%;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  animation:
+    reportsFinalMessage
+    10s
+    var(--ease-fenix)
+    both;
+}
+
+
+.reports-scene__message span {
+  margin-bottom:
+    0.4em;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      1rem,
+      2.2vw,
+      1.8rem
+    );
+
+  font-weight:
+    700;
+}
+
+
+.reports-scene__message strong {
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      1.45rem,
+      3.3vw,
+      2.75rem
+    );
+
+  line-height:
+    1.08;
+}
+
+
+.reports-scene__message small {
+  margin-top:
+    0.9em;
+
+  color:
+    #4b5a6b;
+
+  font-size:
+    clamp(
+      0.9rem,
+      1.4vw,
+      1.1rem
+    );
+
+  font-weight:
+    500;
+}
+
+
+/* ==========================================================
+   17. CAMERA TIMELINE
+   ========================================================== */
+
+@keyframes reportsCameraSequence {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0.97)
+      translateY(8px);
+
+    filter:
+      blur(3px);
+  }
+
+
+  6% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translateY(0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Overview.
+   */
+
+  30% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Entramos al reporte.
+   */
+
+  40% {
+    transform:
+      scale(1.035)
+      translate(
+        -1%,
+        0
+      );
+  }
+
+
+  /*
+   * KPI.
+   */
+
+  55% {
+    transform:
+      scale(1.075)
+      translate(
+        -2.2%,
+        0
+      );
+  }
+
+
+  /*
+   * Tendencia.
+   */
+
+  67% {
+    transform:
+      scale(1.11)
+      translate(
+        -1.5%,
+        -2.5%
+      );
+  }
+
+
+  /*
+   * Regreso general.
+   */
+
+  75% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Cierre.
+   */
+
+  80% {
+    opacity: 0.2;
+
+    transform:
+      scale(0.985);
+
+    filter:
+      blur(1.8px);
+  }
+
+
+  94% {
+    opacity: 0.2;
+
+    transform:
+      scale(0.985);
+
+    filter:
+      blur(1.8px);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(0.96);
+
+    filter:
+      blur(4px);
+  }
+
+}
+
+
+/* ==========================================================
+   18. ENTRANCES
+   ========================================================== */
+
+@keyframes reportsSidebarIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-16px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+@keyframes reportsWorkspaceIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(8px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* ==========================================================
+   19. FINAL MESSAGE TIMELINE
+   ========================================================== */
+
+@keyframes reportsFinalMessage {
+
+  0%,
+  77% {
+    opacity: 0;
+
+    transform:
+      translateY(12px)
+      scale(0.985);
+  }
+
+
+  82% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+
+  94% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-8px)
+      scale(1);
+  }
+
+}
