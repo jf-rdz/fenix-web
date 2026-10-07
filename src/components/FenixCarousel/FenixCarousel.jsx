@@ -8,6 +8,7 @@ import "./FenixCarousel.css";
 import HomeScene from "./scenes/HomeScene";
 import SalesScene from "./scenes/SalesScene";
 import InventoryMobileScene from "./scenes/InventoryMobileScene";
+import OrderServiceScene from "./scenes/OrderServiceScene";
 
 const slides = [
   {
@@ -28,6 +29,13 @@ const slides = [
     id: "inventory-mobile",
     label: "Inventario móvil",
     component: InventoryMobileScene,
+    duration: 10000,
+  },
+
+  {
+    id: "order-service",
+    label: "Órdenes de Servicio",
+    component: OrderServiceScene,
     duration: 10000,
   },
 ];
@@ -88,10 +96,6 @@ function FenixCarousel() {
 
   return (
     <div className="fenix-carousel">
-      {/* ===============================
-          DEMO FRAME
-          =============================== */}
-
       <div className="fenix-demo-frame">
         <div className="fenix-demo-frame__topbar">
           <div className="fenix-demo-frame__dots">
@@ -112,10 +116,6 @@ function FenixCarousel() {
         </div>
       </div>
 
-      {/* ===============================
-          PROGRESS
-          =============================== */}
-
       <div
         className="fenix-carousel__progress"
         aria-hidden="true"
@@ -128,10 +128,6 @@ function FenixCarousel() {
           }}
         />
       </div>
-
-      {/* ===============================
-          INDICATORS
-          =============================== */}
 
       <div className="fenix-carousel__indicators">
         {slides.map(

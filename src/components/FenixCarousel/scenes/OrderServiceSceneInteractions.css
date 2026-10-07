@@ -1,0 +1,238 @@
+/* ==========================================================
+   ORDER SERVICE SCENE — INTERACTIONS
+   ========================================================== */
+
+
+/* ==========================================================
+   BUTTON FOCUS
+   ========================================================== */
+
+.order-page-button--focus {
+  animation:
+    orderNewButtonFocus 900ms var(--ease-fenix) infinite;
+}
+
+@keyframes orderNewButtonFocus {
+  0% {
+    transform:
+      scale(1);
+
+    box-shadow:
+      0 0.45em 1.1em rgba(11, 147, 171, 0.2);
+  }
+
+  50% {
+    transform:
+      scale(1.035);
+
+    box-shadow:
+      0 0.75em 1.6em rgba(11, 147, 171, 0.34);
+  }
+
+  100% {
+    transform:
+      scale(1);
+
+    box-shadow:
+      0 0.45em 1.1em rgba(11, 147, 171, 0.2);
+  }
+}
+
+
+/* ==========================================================
+   PROGRAMMING FOCUS
+   ========================================================== */
+
+.order-form-block--programming {
+  transition:
+    transform 320ms var(--ease-fenix),
+    box-shadow 320ms var(--ease-fenix),
+    border-color 320ms var(--ease-fenix),
+    background 320ms var(--ease-fenix);
+}
+
+.order-form-block--focus {
+  border-color:
+    rgba(255, 90, 78, 0.48);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 241, 239, 0.95) 0%,
+      rgba(255, 247, 245, 1) 100%
+    );
+
+  box-shadow:
+    0 0.7em 1.8em rgba(255, 90, 78, 0.14);
+
+  animation:
+    orderProgrammingFocus 900ms var(--ease-fenix) both;
+}
+
+@keyframes orderProgrammingFocus {
+  0% {
+    transform:
+      scale(0.99);
+  }
+
+  60% {
+    transform:
+      scale(1.012);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+.order-form-actions__primary--focus {
+  animation:
+    orderRegisterPulse 900ms var(--ease-fenix) infinite;
+}
+
+@keyframes orderRegisterPulse {
+  0% {
+    transform:
+      scale(1);
+  }
+
+  50% {
+    transform:
+      scale(1.045);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+/* ==========================================================
+   NEW ORDER ROW
+   ========================================================== */
+
+.order-table__row--new {
+  position: relative;
+
+  animation:
+    orderNewRowIn 650ms var(--ease-fenix) both;
+}
+
+.order-table__row--new::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(11, 147, 171, 0.1);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  animation:
+    orderNewRowHighlight 1700ms ease both;
+}
+
+@keyframes orderNewRowIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-14px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes orderNewRowHighlight {
+  0% {
+    opacity: 1;
+  }
+
+  65% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* ==========================================================
+   METRIC HIGHLIGHT
+   ========================================================== */
+
+.order-metric--pulse {
+  animation:
+    orderMetricPulse 1100ms var(--ease-fenix) both;
+}
+
+@keyframes orderMetricPulse {
+  0% {
+    transform:
+      scale(1);
+  }
+
+  35% {
+    transform:
+      scale(1.04);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+/* ==========================================================
+   UPDATED VALUES
+   ========================================================== */
+
+.order-service-scene--registered
+.order-metric__amount,
+.order-service-scene--registered
+.order-metric__count {
+  animation:
+    orderMetricValueUpdate 850ms var(--ease-fenix) both;
+}
+
+@keyframes orderMetricValueUpdate {
+  0% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    text-shadow:
+      0 0 0 rgba(255, 255, 255, 0);
+  }
+
+  45% {
+    transform:
+      translateY(-2px)
+      scale(1.08);
+
+    text-shadow:
+      0 4px 18px rgba(255, 255, 255, 0.24);
+  }
+
+  100% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    text-shadow:
+      0 0 0 rgba(255, 255, 255, 0);
+  }
+}
