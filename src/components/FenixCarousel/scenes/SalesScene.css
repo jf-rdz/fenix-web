@@ -1,0 +1,1077 @@
+/* ==========================================================
+   SALES SCENE
+   Réplica visual de Venta Mostrador
+   ========================================================== */
+
+
+/* ==========================================================
+   1. SCENE
+   ========================================================== */
+
+.sales-scene {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
+  background:
+    var(--fenix-background);
+
+  color:
+    var(--fenix-navy);
+}
+
+
+/* ==========================================================
+   2. CAMERA
+   ========================================================== */
+
+.sales-camera {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  background:
+    var(--fenix-background);
+}
+
+
+.sales-camera__stage {
+  width: 100%;
+  height: 100%;
+
+  transform-origin:
+    84% 48%;
+
+  animation:
+    salesCameraSequence
+    10s
+    var(--ease-fenix)
+    both;
+}
+
+
+/* ==========================================================
+   3. APPLICATION
+   ========================================================== */
+
+.sales-app {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+
+  grid-template-rows:
+    11%
+    89%;
+
+  font-size:
+    clamp(
+      6px,
+      0.62vw,
+      10px
+    );
+
+  background:
+    var(--fenix-background);
+}
+
+
+.sales-app__body {
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    19%
+    81%;
+}
+
+
+/* ==========================================================
+   4. SIDEBAR
+   ========================================================== */
+
+.sales-sidebar {
+  min-height: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background:
+    #f8fafc;
+
+  border-right:
+    1px solid
+    #dce3ec;
+
+  opacity: 0;
+
+  transform:
+    translateX(-16px);
+
+  animation:
+    salesSidebarIn
+    650ms
+    var(--ease-fenix)
+    450ms
+    forwards;
+}
+
+
+.sales-sidebar__nav {
+  padding:
+    1em
+    0.65em;
+}
+
+
+.sales-sidebar__item {
+  min-height:
+    4.05em;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.9em;
+
+  padding:
+    0 0.8em;
+
+  border-radius:
+    0.65em;
+
+  color:
+    #344054;
+
+  font-size:
+    0.9em;
+}
+
+
+.sales-sidebar__item svg {
+  flex:
+    0 0 auto;
+}
+
+
+.sales-sidebar__item--active {
+  background:
+    var(--fenix-navy);
+
+  color:
+    #ffffff;
+}
+
+
+.sales-sidebar__account {
+  margin-top:
+    auto;
+
+  padding:
+    1.15em
+    0.65em
+    0.9em;
+
+  border-top:
+    1px solid
+    #d6dee8;
+}
+
+
+.sales-sidebar__account-title {
+  display: block;
+
+  padding:
+    0 0.8em
+    0.55em;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    0.88em;
+
+  letter-spacing:
+    0.15em;
+}
+
+
+/* ==========================================================
+   5. WORKSPACE
+   ========================================================== */
+
+.sales-workspace {
+  min-width: 0;
+  min-height: 0;
+
+  padding:
+    2.1em
+    3.4em
+    1.2em;
+
+  overflow: hidden;
+
+  background:
+    var(--fenix-background);
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  animation:
+    salesWorkspaceIn
+    650ms
+    var(--ease-fenix)
+    750ms
+    forwards;
+}
+
+
+/* ==========================================================
+   6. PAGE HEADER
+   ========================================================== */
+
+.sales-page-header {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  min-height:
+    4.4em;
+}
+
+
+.sales-page-title {
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.65em;
+}
+
+
+.sales-page-title strong {
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    2em;
+
+  font-weight:
+    700;
+}
+
+
+.sales-page-title__back {
+  width:
+    1.8em;
+
+  height:
+    1.8em;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    2px solid
+    var(--fenix-turquoise);
+
+  border-radius:
+    999px;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-size:
+    1.15em;
+
+  font-weight:
+    700;
+}
+
+
+.sales-page-title__help {
+  width:
+    1.8em;
+
+  height:
+    1.8em;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid
+    #bbd9e7;
+
+  border-radius:
+    999px;
+
+  background:
+    #e5f2f8;
+
+  color:
+    #2b6a90;
+
+  font-size:
+    0.95em;
+
+  font-weight:
+    700;
+}
+
+
+.sales-new-button {
+  min-width:
+    11em;
+
+  min-height:
+    3.2em;
+
+  padding:
+    0 1.4em;
+
+  border: 0;
+
+  border-radius:
+    0.65em;
+
+  background:
+    var(--fenix-turquoise);
+
+  color:
+    #ffffff;
+
+  font-weight:
+    700;
+
+  box-shadow:
+    0 0.4em 1em
+    rgba(
+      11,
+      147,
+      171,
+      0.18
+    );
+}
+
+
+/* ==========================================================
+   7. SEARCH
+   ========================================================== */
+
+.sales-search-row {
+  padding:
+    1em 0
+    1.45em;
+}
+
+
+.sales-search {
+  width:
+    49%;
+
+  min-height:
+    3.15em;
+
+  display: flex;
+
+  align-items: center;
+
+  padding:
+    0 1em;
+
+  border:
+    1px solid
+    #d6dee8;
+
+  border-radius:
+    0.45em;
+
+  background:
+    #ffffff;
+
+  color:
+    #a0aabd;
+
+  font-size:
+    1em;
+}
+
+
+/* ==========================================================
+   8. MAIN CONTENT
+   ========================================================== */
+
+.sales-content {
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 2.35fr)
+    minmax(0, 1fr);
+
+  gap:
+    1.25em;
+}
+
+
+/* ==========================================================
+   9. TABLE CARD
+   ========================================================== */
+
+.sales-table-card {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content:
+    space-between;
+}
+
+
+.sales-table {
+  overflow: hidden;
+
+  background:
+    #ffffff;
+
+  border-radius:
+    0.45em;
+
+  box-shadow:
+    0 0.3em 0.9em
+    rgba(
+      29,
+      41,
+      75,
+      0.08
+    );
+}
+
+
+/* ==========================================================
+   10. TABLE
+   ========================================================== */
+
+.sales-table__header,
+.sales-table__row {
+  display: grid;
+
+  grid-template-columns:
+    0.7fr
+    0.9fr
+    2.25fr
+    1.5fr
+    0.85fr
+    0.72fr;
+
+  align-items: center;
+}
+
+
+.sales-table__header {
+  min-height:
+    3.45em;
+
+  padding:
+    0 1em;
+
+  background:
+    var(--fenix-turquoise);
+
+  color:
+    #ffffff;
+
+  font-size:
+    0.88em;
+
+  font-weight:
+    700;
+
+  text-align:
+    center;
+}
+
+
+.sales-table__row {
+  min-height:
+    4em;
+
+  padding:
+    0 1em;
+
+  border-bottom:
+    1px solid
+    #dce2e8;
+
+  color:
+    #14213d;
+
+  font-size:
+    0.82em;
+}
+
+
+.sales-table__row:last-child {
+  border-bottom: 0;
+}
+
+
+.sales-table__row span {
+  padding:
+    0 0.35em;
+}
+
+
+.sales-table__download {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color:
+    var(--fenix-turquoise);
+}
+
+
+/* ==========================================================
+   11. PAGINATION
+   ========================================================== */
+
+.sales-pagination {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap:
+    1.2em;
+
+  margin-top:
+    1.4em;
+
+  color:
+    var(--fenix-navy);
+
+  font-size:
+    0.8em;
+}
+
+
+.sales-pagination button {
+  border: 0;
+
+  padding:
+    0.65em
+    1.2em;
+
+  border-radius:
+    0.5em;
+
+  background:
+    #dce2e8;
+
+  color:
+    var(--fenix-navy);
+}
+
+
+.sales-pagination__next {
+  background:
+    var(--fenix-turquoise)
+    !important;
+
+  color:
+    #ffffff
+    !important;
+}
+
+
+/* ==========================================================
+   12. METRICS
+   ========================================================== */
+
+.sales-metrics {
+  min-height: 0;
+
+  display: grid;
+
+  grid-template-rows:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap:
+    1.05em;
+}
+
+
+.sales-metric {
+  position: relative;
+
+  min-height: 0;
+
+  overflow: hidden;
+
+  padding:
+    1.45em;
+
+  border-radius:
+    0.65em;
+
+  box-shadow:
+    0 0.4em 1em
+    rgba(
+      29,
+      41,
+      75,
+      0.12
+    );
+
+  color:
+    #ffffff;
+}
+
+
+.sales-metric__label {
+  display: block;
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    1.02em;
+
+  font-weight:
+    700;
+}
+
+
+.sales-metric__value {
+  display: block;
+
+  margin-top:
+    0.15em;
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    2.15em;
+
+  font-weight:
+    700;
+
+  line-height:
+    1;
+
+  font-variant-numeric:
+    tabular-nums;
+}
+
+
+.sales-metric__icon {
+  position: absolute;
+
+  right:
+    0.4em;
+
+  bottom:
+    0.1em;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.32
+    );
+
+  font-size:
+    4.5em;
+
+  font-weight:
+    300;
+
+  line-height:
+    1;
+}
+
+
+.sales-metric--navy {
+  background:
+    var(--fenix-navy);
+}
+
+
+.sales-metric--cyan {
+  background:
+    var(--fenix-turquoise);
+}
+
+
+.sales-metric--slate {
+  background:
+    var(--fenix-gray-900);
+}
+
+
+/* ==========================================================
+   13. FINAL MESSAGE
+   ========================================================== */
+
+.sales-scene__message {
+  position: absolute;
+
+  z-index: 30;
+
+  inset: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    10%;
+
+  text-align: center;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  animation:
+    salesFinalMessage
+    10s
+    var(--ease-fenix)
+    both;
+}
+
+
+.sales-scene__message span {
+  margin-bottom:
+    0.45em;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      1rem,
+      2.2vw,
+      1.8rem
+    );
+
+  font-weight:
+    700;
+}
+
+
+.sales-scene__message strong {
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      1.4rem,
+      3vw,
+      2.5rem
+    );
+
+  line-height:
+    1.1;
+}
+
+
+/* ==========================================================
+   14. CAMERA TIMELINE
+   ========================================================== */
+
+@keyframes salesCameraSequence {
+
+  /*
+   * Apertura.
+   */
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0.97)
+      translate(0, 0);
+
+    filter:
+      blur(3px);
+  }
+
+
+  6% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Vista completa.
+   */
+
+  34% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Comienza la venta.
+   */
+
+  42% {
+    opacity: 1;
+
+    transform:
+      scale(1.045)
+      translate(
+        -1.5%,
+        0
+      );
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Zoom hacia Ventas hoy /
+   * Ingresos hoy.
+   */
+
+  52% {
+    opacity: 1;
+
+    transform:
+      scale(1.15)
+      translate(
+        -5.2%,
+        0
+      );
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Nos quedamos en métricas.
+   */
+
+  63% {
+    opacity: 1;
+
+    transform:
+      scale(1.15)
+      translate(
+        -5.2%,
+        0
+      );
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Regreso.
+   */
+
+  72% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      translate(0, 0);
+
+    filter:
+      blur(0);
+  }
+
+
+  /*
+   * Segundo plano.
+   */
+
+  79% {
+    opacity: 0.25;
+
+    transform:
+      scale(0.985);
+
+    filter:
+      blur(1.5px);
+  }
+
+
+  92% {
+    opacity: 0.25;
+
+    transform:
+      scale(0.985);
+
+    filter:
+      blur(1.5px);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(0.97);
+
+    filter:
+      blur(3px);
+  }
+
+}
+
+
+/* ==========================================================
+   15. ENTRANCES
+   ========================================================== */
+
+@keyframes salesSidebarIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-16px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+
+}
+
+
+@keyframes salesWorkspaceIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(8px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+/* ==========================================================
+   16. FINAL MESSAGE
+   ========================================================== */
+
+@keyframes salesFinalMessage {
+
+  0%,
+  75% {
+    opacity: 0;
+
+    transform:
+      translateY(12px)
+      scale(0.98);
+  }
+
+
+  81% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+
+  93% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-8px)
+      scale(1);
+  }
+
+}

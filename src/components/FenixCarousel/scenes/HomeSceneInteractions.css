@@ -1,0 +1,363 @@
+/* ==========================================================
+   HOME SCENE — INTERACTIONS
+   Eventos simulados dentro del dashboard
+   ========================================================== */
+
+
+/* ==========================================================
+   DASHBOARD
+   ========================================================== */
+
+.fenix-dashboard {
+  position: relative;
+}
+
+
+/* ==========================================================
+   TOTAL SALES — LIVE UPDATE
+   ========================================================== */
+
+.sales-summary {
+  position: relative;
+}
+
+
+.sales-summary__value {
+  transition:
+    transform 300ms
+    var(--ease-fenix),
+    text-shadow 300ms
+    ease;
+}
+
+
+/*
+ * Cuando entra la nueva venta,
+ * hacemos un pequeño pulso.
+ */
+
+.sales-summary--updated
+.sales-summary__value {
+
+  animation:
+    fenixSalesValuePulse
+    850ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes fenixSalesValuePulse {
+
+  0% {
+    transform:
+      scale(1);
+
+    text-shadow:
+      0 0 0
+      rgba(11, 147, 171, 0);
+  }
+
+  35% {
+    transform:
+      scale(1.075);
+
+    text-shadow:
+      0 4px 18px
+      rgba(11, 147, 171, 0.22);
+  }
+
+  100% {
+    transform:
+      scale(1);
+
+    text-shadow:
+      0 0 0
+      rgba(11, 147, 171, 0);
+  }
+
+}
+
+
+/* ==========================================================
+   NUEVA VENTA BADGE
+   ========================================================== */
+
+.sales-summary__event {
+  position: absolute;
+
+  top: 0.8em;
+  right: 1em;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7em;
+
+  padding:
+    0.55em
+    0.75em;
+
+  border:
+    1px solid
+    rgba(11, 147, 171, 0.18);
+
+  border-radius:
+    0.65em;
+
+  background:
+    rgba(255, 255, 255, 0.94);
+
+  box-shadow:
+    0 0.4em 1.2em
+    rgba(29, 41, 75, 0.1);
+
+  opacity: 0;
+
+  transform:
+    translateY(-0.7em)
+    scale(0.96);
+
+  pointer-events: none;
+}
+
+
+.sales-summary__event p {
+  margin: 0;
+
+  color:
+    var(--fenix-gray-900);
+
+  font-size:
+    0.72em;
+
+  font-weight:
+    600;
+}
+
+
+.sales-summary__event b {
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    0.82em;
+}
+
+
+.sales-summary__event--visible {
+
+  animation:
+    fenixSaleEvent
+    1400ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes fenixSaleEvent {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(-0.7em)
+      scale(0.96);
+  }
+
+  15% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  78% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-0.3em)
+      scale(0.98);
+  }
+
+}
+
+
+/* ==========================================================
+   GRAPH — NEW SALE SEGMENT
+   ========================================================== */
+
+.mini-chart__increment {
+  fill: none;
+
+  stroke:
+    var(--fenix-turquoise);
+
+  stroke-width:
+    2.4;
+
+  vector-effect:
+    non-scaling-stroke;
+
+  stroke-dasharray:
+    1;
+
+  stroke-dashoffset:
+    1;
+
+  opacity: 0;
+}
+
+
+.mini-chart--sale-added
+.mini-chart__increment {
+
+  opacity: 1;
+
+  animation:
+    fenixNewSaleLine
+    900ms
+    var(--ease-fenix)
+    forwards;
+}
+
+
+@keyframes fenixNewSaleLine {
+
+  from {
+    stroke-dashoffset:
+      1;
+  }
+
+  to {
+    stroke-dashoffset:
+      0;
+  }
+
+}
+
+
+/* ==========================================================
+   GRAPH — NEW POINTS
+   ========================================================== */
+
+.mini-chart__increment-point {
+
+  fill:
+    #ffffff;
+
+  stroke:
+    var(--fenix-turquoise);
+
+  stroke-width:
+    2;
+
+  vector-effect:
+    non-scaling-stroke;
+
+  opacity: 0;
+
+  transform-box:
+    fill-box;
+
+  transform-origin:
+    center;
+
+  transform:
+    scale(0);
+}
+
+
+.mini-chart--sale-added
+.mini-chart__increment-point {
+
+  animation:
+    fenixNewSalePoint
+    500ms
+    var(--ease-fenix)
+    calc(
+      280ms +
+      var(--point-delay, 0ms)
+    )
+    forwards;
+}
+
+
+@keyframes fenixNewSalePoint {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0);
+  }
+
+  60% {
+    opacity: 1;
+
+    transform:
+      scale(1.35);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================================
+   TOOLTIP REACTION
+   ========================================================== */
+
+.mini-chart--sale-added
+.mini-chart__tooltip {
+
+  border-color:
+    rgba(
+      11,
+      147,
+      171,
+      0.3
+    );
+
+  box-shadow:
+    0 0.45em 1.2em
+    rgba(
+      11,
+      147,
+      171,
+      0.12
+    );
+}
+
+
+/* ==========================================================
+   SUBTLE CARD FEEDBACK
+   ========================================================== */
+
+.sales-summary--updated {
+
+  box-shadow:
+    0 0.35em 0.9em
+      rgba(29, 41, 75, 0.13),
+    0 0 0 1px
+      rgba(11, 147, 171, 0.08);
+
+}

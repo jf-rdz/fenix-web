@@ -1,0 +1,361 @@
+/* ==========================================================
+   SALES SCENE — INTERACTIONS
+   ========================================================== */
+
+
+/* ==========================================================
+   1. SUCCESS TOAST
+   ========================================================== */
+
+.sales-toast {
+  position: absolute;
+
+  z-index: 45;
+
+  top:
+    1.7em;
+
+  right:
+    2.2em;
+
+  width:
+    min(
+      335px,
+      42%
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    0.9em;
+
+  padding:
+    1em
+    1.2em;
+
+  border:
+    1px solid
+    #a9e8c3;
+
+  border-radius:
+    0.7em;
+
+  background:
+    #e9fbf1;
+
+  color:
+    #078535;
+
+  box-shadow:
+    0 0.6em 1.8em
+    rgba(
+      29,
+      41,
+      75,
+      0.14
+    );
+
+  opacity: 0;
+
+  transform:
+    translateY(-14px)
+    scale(0.97);
+
+  pointer-events: none;
+
+  transition:
+    opacity
+      350ms
+      var(--ease-fenix),
+
+    transform
+      350ms
+      var(--ease-fenix);
+}
+
+
+.sales-toast--visible {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+.sales-toast__check {
+  width:
+    1.8em;
+
+  height:
+    1.8em;
+
+  flex:
+    0 0 auto;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius:
+    999px;
+
+  background:
+    #0a913d;
+
+  color:
+    #ffffff;
+
+  font-weight:
+    700;
+}
+
+
+.sales-toast p {
+  margin: 0;
+
+  font-size:
+    0.9em;
+
+  font-weight:
+    600;
+
+  line-height:
+    1.45;
+}
+
+
+/* ==========================================================
+   2. NEW SALE ROW
+   ========================================================== */
+
+.sales-table__row--new {
+  position: relative;
+
+  animation:
+    salesNewRowIn
+    650ms
+    var(--ease-fenix)
+    both;
+}
+
+
+.sales-table__row--new::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    rgba(
+      11,
+      147,
+      171,
+      0.12
+    );
+
+  animation:
+    salesNewRowHighlight
+    1700ms
+    ease
+    both;
+}
+
+
+@keyframes salesNewRowIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-14px);
+  }
+
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+@keyframes salesNewRowHighlight {
+
+  0% {
+    opacity: 1;
+  }
+
+
+  70% {
+    opacity: 0.65;
+  }
+
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+
+/* ==========================================================
+   3. METRIC PULSE
+   ========================================================== */
+
+.sales-metric--pulse {
+  animation:
+    salesMetricPulse
+    1100ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes salesMetricPulse {
+
+  0% {
+    transform:
+      scale(1);
+  }
+
+
+  35% {
+    transform:
+      scale(1.045);
+  }
+
+
+  100% {
+    transform:
+      scale(1);
+  }
+
+}
+
+
+/* ==========================================================
+   4. NUMBER UPDATE
+   ========================================================== */
+
+.sales-scene--sale-registered
+.sales-metric__value {
+  animation:
+    salesNumberUpdate
+    850ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes salesNumberUpdate {
+
+  0% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    text-shadow:
+      0 0 0
+      rgba(
+        255,
+        255,
+        255,
+        0
+      );
+  }
+
+
+  40% {
+    transform:
+      translateY(-2px)
+      scale(1.08);
+
+    text-shadow:
+      0 4px 18px
+      rgba(
+        255,
+        255,
+        255,
+        0.24
+      );
+  }
+
+
+  100% {
+    transform:
+      translateY(0)
+      scale(1);
+
+    text-shadow:
+      0 0 0
+      rgba(
+        255,
+        255,
+        255,
+        0
+      );
+  }
+
+}
+
+
+/* ==========================================================
+   5. NEW SALE BUTTON FEEDBACK
+   ========================================================== */
+
+.sales-scene--sale-registered
+.sales-new-button {
+  animation:
+    salesButtonConfirmation
+    850ms
+    var(--ease-fenix)
+    both;
+}
+
+
+@keyframes salesButtonConfirmation {
+
+  0% {
+    box-shadow:
+      0 0.4em 1em
+      rgba(
+        11,
+        147,
+        171,
+        0.18
+      );
+  }
+
+
+  45% {
+    box-shadow:
+      0 0.6em 1.7em
+      rgba(
+        11,
+        147,
+        171,
+        0.34
+      );
+  }
+
+
+  100% {
+    box-shadow:
+      0 0.4em 1em
+      rgba(
+        11,
+        147,
+        171,
+        0.18
+      );
+  }
+
+}

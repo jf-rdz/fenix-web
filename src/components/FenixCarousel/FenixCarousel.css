@@ -1,0 +1,369 @@
+/* ==========================================================
+   FÉNIX CAROUSEL
+   ========================================================== */
+
+
+/* ==========================================================
+   1. CAROUSEL
+   ========================================================== */
+
+.fenix-carousel {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio:
+    16 / 10;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+}
+
+
+/* ==========================================================
+   2. DEMO FRAME
+   ========================================================== */
+
+.fenix-demo-frame {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    rgba(
+      29,
+      41,
+      75,
+      0.12
+    );
+
+  border-radius:
+    22px;
+
+  background:
+    #111827;
+
+  box-shadow:
+    0 30px 70px
+      rgba(
+        17,
+        24,
+        39,
+        0.22
+      ),
+    0 8px 24px
+      rgba(
+        17,
+        24,
+        39,
+        0.12
+      );
+}
+
+
+/* ==========================================================
+   3. FRAME TOPBAR
+   ========================================================== */
+
+.fenix-demo-frame__topbar {
+  height:
+    7.5%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  padding:
+    0 18px;
+
+  background:
+    #202c3b;
+
+  color:
+    #f7fafc;
+
+  border-bottom:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.08
+    );
+}
+
+
+.fenix-demo-frame__dots {
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    8px;
+}
+
+
+.fenix-demo-frame__dots span {
+  width:
+    10px;
+
+  height:
+    10px;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.56
+    );
+}
+
+
+.fenix-demo-frame__title {
+  font-size:
+    0.88rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.015em;
+}
+
+
+/* ==========================================================
+   4. VIEWPORT
+   ========================================================== */
+
+.fenix-demo-frame__viewport {
+  width:
+    100%;
+
+  height:
+    92.5%;
+
+  overflow: hidden;
+
+  background:
+    var(--fenix-background);
+}
+
+
+/* ==========================================================
+   5. PROGRESS
+   ========================================================== */
+
+.fenix-carousel__progress {
+  position: absolute;
+
+  z-index: 70;
+
+  left:
+    50%;
+
+  bottom:
+    14px;
+
+  width:
+    100px;
+
+  height:
+    4px;
+
+  overflow: hidden;
+
+  transform:
+    translateX(-50%);
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(
+      29,
+      41,
+      75,
+      0.12
+    );
+
+  pointer-events:
+    none;
+}
+
+
+.fenix-carousel__progress span {
+  display: block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  transform-origin:
+    left center;
+
+  border-radius:
+    inherit;
+
+  background:
+    var(--fenix-turquoise);
+
+  animation:
+    fenixCarouselProgress
+    10s
+    linear
+    both;
+}
+
+
+@keyframes fenixCarouselProgress {
+
+  from {
+    transform:
+      scaleX(0);
+  }
+
+
+  to {
+    transform:
+      scaleX(1);
+  }
+
+}
+
+
+/* ==========================================================
+   6. INDICATORS
+   ========================================================== */
+
+.fenix-carousel__indicators {
+  position: absolute;
+
+  z-index: 80;
+
+  left:
+    50%;
+
+  bottom:
+    -25px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap:
+    8px;
+
+  transform:
+    translateX(-50%);
+}
+
+
+.fenix-carousel__indicator {
+  width:
+    8px;
+
+  height:
+    8px;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius:
+    999px;
+
+  background:
+    rgba(
+      29,
+      41,
+      75,
+      0.22
+    );
+
+  cursor: pointer;
+
+  transition:
+    width
+      250ms
+      var(--ease-fenix),
+
+    background
+      250ms
+      ease,
+
+    transform
+      250ms
+      var(--ease-fenix);
+}
+
+
+.fenix-carousel__indicator:hover {
+  transform:
+    scale(1.15);
+}
+
+
+.fenix-carousel__indicator--active {
+  width:
+    26px;
+
+  background:
+    var(--fenix-turquoise);
+}
+
+
+/* ==========================================================
+   7. RESPONSIVE
+   ========================================================== */
+
+@media (
+  max-width:
+  900px
+) {
+
+  .fenix-demo-frame {
+    border-radius:
+      16px;
+  }
+
+
+  .fenix-demo-frame__topbar {
+    padding:
+      0 12px;
+  }
+
+
+  .fenix-demo-frame__dots {
+    gap:
+      5px;
+  }
+
+
+  .fenix-demo-frame__dots span {
+    width:
+      7px;
+
+    height:
+      7px;
+  }
+
+
+  .fenix-demo-frame__title {
+    font-size:
+      0.7rem;
+  }
+
+}

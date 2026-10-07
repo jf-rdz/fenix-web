@@ -1,0 +1,172 @@
+/* ==========================================================
+   INVENTORY MOBILE SCENE — INTERACTIONS
+   ========================================================== */
+
+
+/* ==========================================================
+   1. BELL PULSE
+   ========================================================== */
+
+.inventory-mobile-header__icon--pulse {
+  animation:
+    inventoryBellPulse
+    900ms
+    var(--ease-fenix)
+    infinite;
+}
+
+@keyframes inventoryBellPulse {
+  0% {
+    transform:
+      scale(1);
+    box-shadow:
+      0 0 0 0 rgba(229, 57, 53, 0);
+  }
+
+  45% {
+    transform:
+      scale(1.08);
+    box-shadow:
+      0 0 0 0.4em rgba(229, 57, 53, 0.12);
+  }
+
+  100% {
+    transform:
+      scale(1);
+    box-shadow:
+      0 0 0 0 rgba(229, 57, 53, 0);
+  }
+}
+
+
+/* ==========================================================
+   2. CRITICAL INVENTORY ROW
+   ========================================================== */
+
+.inventory-mobile-table__row--critical {
+  position: relative;
+
+  animation:
+    inventoryCriticalRowHint
+    1300ms
+    var(--ease-fenix)
+    1600ms
+    1 both;
+}
+
+.inventory-mobile-table__row--critical::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    rgba(255, 212, 143, 0.18);
+
+  opacity: 0;
+
+  animation:
+    inventoryCriticalOverlay
+    1300ms
+    ease
+    1600ms
+    1 both;
+}
+
+@keyframes inventoryCriticalRowHint {
+  0% {
+    transform:
+      scale(1);
+  }
+
+  45% {
+    transform:
+      scale(1.012);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+@keyframes inventoryCriticalOverlay {
+  0% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* ==========================================================
+   3. DRAWER FOCUS ALERT
+   ========================================================== */
+
+.inventory-notification__item--critical {
+  border:
+    1px solid
+    transparent;
+}
+
+.inventory-notification__item--focus {
+  border-color:
+    rgba(11, 147, 171, 0.22);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(11, 147, 171, 0.08) 0%,
+      rgba(11, 147, 171, 0.04) 100%
+    );
+
+  box-shadow:
+    0 0.55em 1.25em rgba(11, 147, 171, 0.12);
+
+  animation:
+    inventoryAlertFocus
+    900ms
+    var(--ease-fenix)
+    both;
+}
+
+@keyframes inventoryAlertFocus {
+  0% {
+    transform:
+      scale(0.985)
+      translateY(2px);
+  }
+
+  60% {
+    transform:
+      scale(1.015)
+      translateY(0);
+  }
+
+  100% {
+    transform:
+      scale(1)
+      translateY(0);
+  }
+}
+
+
+/* ==========================================================
+   4. DRAWER EMPHASIS
+   ========================================================== */
+
+.inventory-mobile-scene--drawer-open
+.inventory-phone-shell {
+  box-shadow:
+    0 2.5em 4.8em rgba(17, 24, 39, 0.24),
+    0 0.8em 1.8em rgba(17, 24, 39, 0.18);
+}

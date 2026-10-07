@@ -1,0 +1,72 @@
+:root {
+  /* =========================
+     FÉNIX - BRAND COLORS
+     ========================= */
+
+  --fenix-navy: #1d294b;
+  --fenix-turquoise: #0b93ab;
+
+  --fenix-background: #f7fafc;
+
+  --fenix-gray-900: #2d3748;
+  --fenix-gray-300: #cbd5e0;
+
+  --fenix-white: #ffffff;
+
+  /* =========================
+     TEXT
+     ========================= */
+
+  --color-heading: var(--fenix-navy);
+  --color-text: var(--fenix-gray-900);
+  --color-primary: var(--fenix-turquoise);
+
+  /* =========================
+     UI
+     ========================= */
+
+  --border-color: #e2e8f0;
+
+  --shadow-sm:
+    0 2px 6px rgba(29, 41, 75, 0.08);
+
+  --shadow-md:
+    0 10px 30px rgba(29, 41, 75, 0.12);
+
+  --shadow-lg:
+    0 20px 50px rgba(29, 41, 75, 0.16);
+
+  /* =========================
+     BORDER RADIUS
+     ========================= */
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* =========================
+     TYPOGRAPHY
+     ========================= */
+
+  --font-heading:
+    "Montserrat",
+    Arial,
+    sans-serif;
+
+  --font-body:
+    "Inter",
+    Arial,
+    sans-serif;
+
+  /* =========================
+     ANIMATION
+     ========================= */
+
+  --ease-fenix:
+    cubic-bezier(0.22, 1, 0.36, 1);
+
+  --transition-fast: 180ms;
+  --transition-normal: 350ms;
+  --transition-slow: 700ms;
+}
