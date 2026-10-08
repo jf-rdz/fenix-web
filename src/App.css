@@ -14,14 +14,16 @@
 }
 
 
+
 /* ==========================================================
-   PLACEHOLDER BLOCKS
+   TEMPORARY BLOCKS
    ========================================================== */
 
 .landing-block {
   width: 100%;
 
-  min-height: 620px;
+  min-height:
+    620px;
 
   display: flex;
 
@@ -30,17 +32,20 @@
   justify-content: center;
 
   padding:
-    80px 24px;
+    80px
+    24px;
 }
 
 
 .landing-block__inner {
-  width: min(
-    1180px,
-    100%
-  );
+  width:
+    min(
+      1180px,
+      100%
+    );
 
-  min-height: 420px;
+  min-height:
+    420px;
 
   display: flex;
 
@@ -66,12 +71,15 @@
       4rem
     );
 
-  font-weight: 700;
+  font-weight:
+    700;
 }
 
 
+
 /* ==========================================================
-   BLOQUE 2
+   BLOCK 2
+   TEMPORARY PLACEHOLDER
    ========================================================== */
 
 .landing-block--2 {
@@ -80,32 +88,26 @@
 }
 
 
-/* ==========================================================
-   BLOQUE 3
-   ========================================================== */
-
-.landing-block--3 {
-  background:
-    var(--fenix-white);
-}
-
 
 /* ==========================================================
-   RESPONSIVE
+   RESPONSIVE TEMP BLOCK
    ========================================================== */
 
 @media (max-width: 767px) {
 
   .landing-block {
-    min-height: 520px;
+    min-height:
+      520px;
 
     padding:
-      64px 20px;
+      64px
+      20px;
   }
 
 
   .landing-block__inner {
-    min-height: 340px;
+    min-height:
+      340px;
   }
 
 }

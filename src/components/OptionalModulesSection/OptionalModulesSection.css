@@ -1,0 +1,393 @@
+/* ==========================================================
+   OPTIONAL MODULES SECTION
+   BLOQUE 3
+   ========================================================== */
+
+.optional-modules-section {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  padding:
+    clamp(
+      88px,
+      9vw,
+      150px
+    )
+    24px;
+
+  background:
+    var(--fenix-white);
+}
+
+
+
+/* ==========================================================
+   INNER LAYOUT
+   ========================================================== */
+
+.optional-modules-section__inner {
+  width:
+    min(
+      1440px,
+      100%
+    );
+
+  margin:
+    0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      0,
+      1.45fr
+    )
+    minmax(
+      340px,
+      0.9fr
+    );
+
+  align-items: center;
+
+  gap:
+    clamp(
+      54px,
+      6vw,
+      110px
+    );
+}
+
+
+
+/* ==========================================================
+   VISUAL
+   ========================================================== */
+
+.optional-modules-section__visual {
+  min-width: 0;
+
+  position: relative;
+}
+
+
+.optional-modules-section__visual::before {
+  content: "";
+
+  position: absolute;
+
+  z-index: -1;
+
+  width:
+    72%;
+
+  aspect-ratio:
+    1;
+
+  left:
+    8%;
+
+  top:
+    50%;
+
+  transform:
+    translateY(-50%);
+
+  border-radius:
+    999px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(
+        11,
+        147,
+        171,
+        0.10
+      )
+      0%,
+
+      rgba(
+        11,
+        147,
+        171,
+        0.04
+      )
+      38%,
+
+      rgba(
+        11,
+        147,
+        171,
+        0
+      )
+      72%
+    );
+
+  pointer-events: none;
+}
+
+
+
+/* ==========================================================
+   COPY
+   ========================================================== */
+
+.optional-modules-section__content {
+  max-width:
+    540px;
+}
+
+
+.optional-modules-section__eyebrow {
+  margin:
+    0 0 18px;
+
+  color:
+    var(--fenix-turquoise);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      0.95rem,
+      1.15vw,
+      1.1rem
+    );
+
+  font-weight:
+    700;
+
+  line-height:
+    1.45;
+}
+
+
+.optional-modules-section__title {
+  margin:
+    0;
+
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      2.4rem,
+      4.2vw,
+      4.5rem
+    );
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    -0.035em;
+
+  line-height:
+    1.02;
+}
+
+
+.optional-modules-section__description {
+  margin:
+    28px 0 0;
+
+  color:
+    var(--fenix-gray-900);
+
+  font-family:
+    var(--font-body);
+
+  font-size:
+    clamp(
+      1rem,
+      1.2vw,
+      1.15rem
+    );
+
+  line-height:
+    1.75;
+}
+
+
+.optional-modules-section__closing {
+  position: relative;
+
+  margin:
+    30px 0 0;
+
+  padding:
+    22px
+    0
+    22px
+    24px;
+
+  border-left:
+    4px solid
+    var(--fenix-turquoise);
+
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-body);
+
+  font-size:
+    clamp(
+      1rem,
+      1.2vw,
+      1.14rem
+    );
+
+  font-weight:
+    700;
+
+  line-height:
+    1.65;
+}
+
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1100px) {
+
+  .optional-modules-section__inner {
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(300px, 0.9fr);
+
+    gap:
+      48px;
+  }
+
+
+  .optional-modules-section__title {
+    font-size:
+      clamp(
+        2.25rem,
+        4vw,
+        3.5rem
+      );
+  }
+
+}
+
+
+
+/* ==========================================================
+   MOBILE / STACKED STRUCTURE
+
+   La afinación detallada se hará en
+   nuestra pasada responsive.
+   ========================================================== */
+
+@media (max-width: 850px) {
+
+  .optional-modules-section {
+    padding:
+      80px 20px;
+  }
+
+
+  .optional-modules-section__inner {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      46px;
+  }
+
+
+  /*
+   * En móvil primero explicamos
+   * qué está viendo el usuario.
+   */
+
+  .optional-modules-section__content {
+    order:
+      1;
+
+    max-width:
+      620px;
+
+    margin:
+      0 auto;
+
+    text-align:
+      left;
+  }
+
+
+  .optional-modules-section__visual {
+    order:
+      2;
+
+    width: 100%;
+  }
+
+
+  .optional-modules-section__title {
+    font-size:
+      clamp(
+        2.2rem,
+        9vw,
+        3.5rem
+      );
+  }
+
+}
+
+
+
+/* ==========================================================
+   SMALL MOBILE
+   ========================================================== */
+
+@media (max-width: 520px) {
+
+  .optional-modules-section {
+    padding:
+      68px 18px;
+  }
+
+
+  .optional-modules-section__inner {
+    gap:
+      38px;
+  }
+
+
+  .optional-modules-section__eyebrow {
+    margin-bottom:
+      14px;
+  }
+
+
+  .optional-modules-section__description {
+    margin-top:
+      22px;
+
+    line-height:
+      1.65;
+  }
+
+
+  .optional-modules-section__closing {
+    margin-top:
+      24px;
+
+    padding:
+      18px 0
+      18px 18px;
+  }
+
+}

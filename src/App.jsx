@@ -1,28 +1,36 @@
 import "./App.css";
 
-import Hero from "./components/Hero/Hero";
+import Hero
+  from "./components/Hero/Hero";
+
+import OptionalModulesSection
+  from "./components/OptionalModulesSection/OptionalModulesSection";
 
 
 function App() {
   return (
     <main className="fenix-landing">
 
+
       {/* =========================================
           BLOQUE 1
-          HERO ACTUAL
+          HERO + CARRUSEL
           ========================================= */}
 
       <Hero />
 
 
+
       {/* =========================================
           BLOQUE 2
+          RESERVADO PARA EL OTRO SEGMENTO
           ========================================= */}
 
       <section
         className="landing-block landing-block--2"
         aria-labelledby="block-2-title"
       >
+
         <div className="landing-block__inner">
 
           <h2 id="block-2-title">
@@ -30,25 +38,17 @@ function App() {
           </h2>
 
         </div>
+
       </section>
+
 
 
       {/* =========================================
           BLOQUE 3
+          FÉNIX MODULAR
           ========================================= */}
 
-      <section
-        className="landing-block landing-block--3"
-        aria-labelledby="block-3-title"
-      >
-        <div className="landing-block__inner">
-
-          <h2 id="block-3-title">
-            Bloque 3
-          </h2>
-
-        </div>
-      </section>
+      <OptionalModulesSection />
 
     </main>
   );
