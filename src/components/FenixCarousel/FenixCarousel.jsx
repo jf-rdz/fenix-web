@@ -52,8 +52,31 @@ const slides = [
 ];
 
 
+/* ==========================================================
+   SWIPE
+   ========================================================== */
+
 const SWIPE_THRESHOLD = 45;
+
 const SWIPE_DIRECTION_RATIO = 1.2;
+
+
+/* ==========================================================
+   MOBILE INTRO
+
+   0 - 350 ms
+   pantalla web completa
+
+   350 - 1100 ms
+   zoom hacia el encuadre responsive
+
+   1100 ms+
+   cámara normal del slide
+   ========================================================== */
+
+const INTRO_ZOOM_START = 350;
+
+const INTRO_SETTLED = 1100;
 
 
 function FenixCarousel() {
@@ -62,6 +85,7 @@ function FenixCarousel() {
     setCurrentSlide,
   ] = useState(0);
 
+
   const [
     cycle,
     setCycle,
@@ -69,10 +93,21 @@ function FenixCarousel() {
 
 
   /*
-   * Guardamos la información del gesto
-   * sin provocar renders mientras el usuario
-   * mueve el dedo.
+   * hold:
+   * pantalla completa / alejada
+   *
+   * zoom:
+   * transición al encuadre responsive
+   *
+   * settled:
+   * animación normal del slide
    */
+
+  const [
+    introPhase,
+    setIntroPhase,
+  ] = useState("hold");
+
 
   const gestureRef = useRef({
     active: false,
@@ -85,8 +120,52 @@ function FenixCarousel() {
   const slide =
     slides[currentSlide];
 
+
   const Scene =
     slide.component;
+
+
+
+  /* ========================================================
+     INTRO RESPONSIVE
+     ======================================================== */
+
+  useEffect(() => {
+    /*
+     * Al montar o reiniciar cualquier slide,
+     * volvemos al plano general.
+     */
+
+    setIntroPhase("hold");
+
+
+    const zoomTimer =
+      setTimeout(() => {
+        setIntroPhase("zoom");
+      }, INTRO_ZOOM_START);
+
+
+    const settledTimer =
+      setTimeout(() => {
+        setIntroPhase("settled");
+      }, INTRO_SETTLED);
+
+
+    return () => {
+      clearTimeout(
+        zoomTimer
+      );
+
+      clearTimeout(
+        settledTimer
+      );
+    };
+
+  }, [
+    currentSlide,
+    cycle,
+  ]);
+
 
 
   /* ========================================================
@@ -96,16 +175,32 @@ function FenixCarousel() {
   useEffect(() => {
     const timer =
       setTimeout(() => {
+
+        /*
+         * Es importante regresar primero
+         * al plano general.
+         *
+         * Así el siguiente slide siempre
+         * comienza mostrando contexto.
+         */
+
+        setIntroPhase(
+          "hold"
+        );
+
+
         setCurrentSlide(
           (current) =>
             (current + 1) %
             slides.length
         );
 
+
         setCycle(
           (current) =>
             current + 1
         );
+
       }, slide.duration);
 
 
@@ -120,20 +215,30 @@ function FenixCarousel() {
   ]);
 
 
+
   /* ========================================================
      DIRECT NAVIGATION
      ======================================================== */
 
-  const goToSlide = (index) => {
+  const goToSlide = (
+    index
+  ) => {
+
+    setIntroPhase(
+      "hold"
+    );
+
+
+    /*
+     * Si toca el indicador
+     * correspondiente al slide actual,
+     * simplemente reiniciamos toda la escena.
+     */
+
     if (
       index ===
       currentSlide
     ) {
-      /*
-       * Si toca el slide activo,
-       * reiniciamos su animación y también
-       * reiniciamos el temporizador.
-       */
 
       setCycle(
         (current) =>
@@ -144,7 +249,10 @@ function FenixCarousel() {
     }
 
 
-    setCurrentSlide(index);
+    setCurrentSlide(
+      index
+    );
+
 
     setCycle(
       (current) =>
@@ -153,52 +261,76 @@ function FenixCarousel() {
   };
 
 
+
   /* ========================================================
-     PREVIOUS / NEXT
+     NEXT
      ======================================================== */
 
-  const goToNextSlide = () => {
-    setCurrentSlide(
-      (current) =>
-        (current + 1) %
-        slides.length
-    );
+  const goToNextSlide =
+    () => {
 
-    setCycle(
-      (current) =>
-        current + 1
-    );
-  };
+      setIntroPhase(
+        "hold"
+      );
 
 
-  const goToPreviousSlide = () => {
-    setCurrentSlide(
-      (current) =>
-        (
-          current -
-          1 +
+      setCurrentSlide(
+        (current) =>
+          (current + 1) %
           slides.length
-        ) %
-        slides.length
-    );
+      );
 
-    setCycle(
-      (current) =>
-        current + 1
-    );
-  };
+
+      setCycle(
+        (current) =>
+          current + 1
+      );
+    };
+
 
 
   /* ========================================================
-     POINTER / TOUCH GESTURES
+     PREVIOUS
+     ======================================================== */
+
+  const goToPreviousSlide =
+    () => {
+
+      setIntroPhase(
+        "hold"
+      );
+
+
+      setCurrentSlide(
+        (current) =>
+          (
+            current -
+            1 +
+            slides.length
+          ) %
+          slides.length
+      );
+
+
+      setCycle(
+        (current) =>
+          current + 1
+      );
+    };
+
+
+
+  /* ========================================================
+     TOUCH / POINTER
      ======================================================== */
 
   const handlePointerDown = (
     event
   ) => {
+
     /*
-     * Si en desktop utilizamos mouse,
-     * solamente aceptamos el botón principal.
+     * En mouse solamente aceptamos
+     * botón principal.
      */
 
     if (
@@ -212,10 +344,13 @@ function FenixCarousel() {
 
     gestureRef.current = {
       active: true,
+
       pointerId:
         event.pointerId,
+
       startX:
         event.clientX,
+
       startY:
         event.clientY,
     };
@@ -225,6 +360,7 @@ function FenixCarousel() {
   const handlePointerUp = (
     event
   ) => {
+
     const gesture =
       gestureRef.current;
 
@@ -242,27 +378,30 @@ function FenixCarousel() {
       event.clientX -
       gesture.startX;
 
+
     const deltaY =
       event.clientY -
       gesture.startY;
 
 
     const horizontalDistance =
-      Math.abs(deltaX);
+      Math.abs(
+        deltaX
+      );
+
 
     const verticalDistance =
-      Math.abs(deltaY);
+      Math.abs(
+        deltaY
+      );
 
 
     /*
-     * Consideramos swipe solamente cuando:
+     * El gesto solamente cuenta
+     * cuando es claramente horizontal.
      *
-     * 1. recorrió una distancia suficiente;
-     * 2. el movimiento fue claramente
-     *    más horizontal que vertical.
-     *
-     * Esto evita bloquear el scroll normal
-     * de la landing.
+     * De esta forma el carrusel no
+     * bloquea el scroll vertical.
      */
 
     const isHorizontalSwipe =
@@ -276,21 +415,27 @@ function FenixCarousel() {
     if (
       isHorizontalSwipe
     ) {
+
       /*
-       * dedo →
-       * mostramos slide anterior
+       * Dedo hacia la derecha:
+       * anterior.
        */
 
-      if (deltaX > 0) {
+      if (
+        deltaX > 0
+      ) {
         goToPreviousSlide();
       }
 
+
       /*
-       * dedo ←
-       * mostramos slide siguiente
+       * Dedo hacia la izquierda:
+       * siguiente.
        */
 
-      if (deltaX < 0) {
+      if (
+        deltaX < 0
+      ) {
         goToNextSlide();
       }
     }
@@ -307,6 +452,7 @@ function FenixCarousel() {
 
   const handlePointerCancel =
     () => {
+
       gestureRef.current = {
         active: false,
         pointerId: null,
@@ -314,6 +460,7 @@ function FenixCarousel() {
         startY: 0,
       };
     };
+
 
 
   /* ========================================================
@@ -335,22 +482,29 @@ function FenixCarousel() {
 
 
           <div className="fenix-demo-frame__title">
+
             Fénix · {slide.label}
+
           </div>
 
         </div>
 
 
         <div
-          className="fenix-demo-frame__viewport"
+          className={[
+            "fenix-demo-frame__viewport",
+
+            `fenix-demo-frame__viewport--${slide.id}`,
+
+            `fenix-demo-frame__viewport--intro-${introPhase}`,
+          ].join(" ")}
 
           /*
-           * pan-y es clave:
+           * El navegador conserva el scroll
+           * vertical de la landing.
            *
-           * permitimos al navegador manejar
-           * el scroll vertical normalmente,
-           * mientras nosotros interpretamos
-           * los gestos horizontales.
+           * Nosotros interpretamos únicamente
+           * el swipe horizontal.
            */
 
           style={{
@@ -370,12 +524,6 @@ function FenixCarousel() {
             handlePointerCancel
           }
 
-          /*
-           * Evita que una imagen dentro de
-           * las simulaciones active el drag
-           * nativo del navegador.
-           */
-
           onDragStart={(
             event
           ) => {
@@ -392,6 +540,7 @@ function FenixCarousel() {
       </div>
 
 
+
       {/* ===================================================
           PROGRESS
           =================================================== */}
@@ -403,6 +552,7 @@ function FenixCarousel() {
 
         <span
           key={`${slide.id}-${cycle}`}
+
           style={{
             animationDuration:
               `${slide.duration}ms`,
@@ -412,6 +562,7 @@ function FenixCarousel() {
       </div>
 
 
+
       {/* ===================================================
           INDICATORS
           =================================================== */}
@@ -419,10 +570,14 @@ function FenixCarousel() {
       <div className="fenix-carousel__indicators">
 
         {slides.map(
-          (item, index) => (
+          (
+            item,
+            index
+          ) => (
 
             <button
               key={item.id}
+
               type="button"
 
               className={[
@@ -437,7 +592,9 @@ function FenixCarousel() {
                 .join(" ")}
 
               onClick={() =>
-                goToSlide(index)
+                goToSlide(
+                  index
+                )
               }
 
               aria-label={`Mostrar ${item.label}`}

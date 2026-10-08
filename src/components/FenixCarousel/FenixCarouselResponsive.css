@@ -13,6 +13,17 @@
 
    Small mobile:
    < 480px
+
+
+   MOBILE WEB INTRO
+   ----------------
+   Los slides web comienzan mostrando
+   la pantalla completa.
+
+   Después hacen zoom hacia el encuadre
+   responsive aprobado.
+
+   El slide Inventario móvil queda excluido.
    ========================================================== */
 
 
@@ -22,6 +33,7 @@
 
 .fenix-carousel {
   min-width: 0;
+
   max-width: 100%;
 }
 
@@ -33,15 +45,34 @@
 
 .fenix-demo-frame__viewport {
   min-width: 0;
+
   min-height: 0;
 }
 
 
+
+/*
+ * Las cámaras originales siguen usando
+ * transform para sus animaciones.
+ *
+ * Nosotros utilizamos la propiedad individual
+ * scale para no sobrescribirlas.
+ */
+
 .fenix-demo-frame__viewport
 [class*="camera__stage"] {
   transition:
-    width 380ms var(--ease-fenix),
-    margin-left 380ms var(--ease-fenix);
+    width
+      380ms
+      var(--ease-fenix),
+
+    margin-left
+      700ms
+      var(--ease-fenix),
+
+    scale
+      700ms
+      var(--ease-fenix);
 }
 
 
@@ -53,12 +84,14 @@
 @media (max-width: 1099px) {
 
   .fenix-carousel {
-    width: min(
-      100%,
-      980px
-    );
+    width:
+      min(
+        100%,
+        980px
+      );
 
-    margin-inline: auto;
+    margin-inline:
+      auto;
 
     aspect-ratio:
       16 / 11;
@@ -98,6 +131,11 @@
   }
 
 
+  /*
+   * Tablet conserva prácticamente
+   * la experiencia desktop.
+   */
+
   .fenix-demo-frame__viewport
   [class*="camera__stage"] {
     width:
@@ -108,6 +146,11 @@
   }
 
 
+  /*
+   * Slide móvil:
+   * no necesita escenario panorámico.
+   */
+
   .inventory-mobile-scene
   [class*="camera__stage"] {
     width:
@@ -115,6 +158,9 @@
 
     margin-left:
       0;
+
+    scale:
+      1;
   }
 
 
@@ -221,7 +267,8 @@
 
 
   .fenix-demo-frame__title {
-    min-width: 0;
+    min-width:
+      0;
 
     font-size:
       0.67rem;
@@ -239,7 +286,7 @@
 
 
   /* ========================================================
-     ESCENARIO BASE PARA SLIDES DESKTOP
+     ESCENARIO BASE
      ======================================================== */
 
   .fenix-demo-frame__viewport
@@ -249,6 +296,106 @@
 
     height:
       100%;
+  }
+
+
+
+  /* ========================================================
+     INTRO — COMPORTAMIENTO GENERAL
+     ======================================================== */
+
+  /*
+   * Durante HOLD y ZOOM usamos un origen
+   * neutral.
+   *
+   * Cuando termina el zoom dejamos de
+   * sobrescribir transform-origin.
+   *
+   * A partir de ahí vuelve a actuar
+   * exactamente el origen original definido
+   * por cada Scene.
+   */
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .home-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-hold
+    .sales-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-hold
+    .order-service-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-hold
+    .reports-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .home-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .sales-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .order-service-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .reports-scene
+    [class*="camera__stage"] {
+      transform-origin:
+        center center;
+    }
+
+
+    /*
+     * ZOOM:
+     *
+     * escala 1 significa que hemos llegado
+     * al encuadre responsive normal.
+     */
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .home-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .sales-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .order-service-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-zoom
+    .reports-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-settled
+    .home-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-settled
+    .sales-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-settled
+    .order-service-scene
+    [class*="camera__stage"],
+
+    .fenix-demo-frame__viewport--intro-settled
+    .reports-scene
+    [class*="camera__stage"] {
+      scale:
+        1;
+    }
+
   }
 
 
@@ -272,6 +419,30 @@
   .fenix-app {
     font-size:
       7.1px;
+  }
+
+
+  /*
+   * Inicio alejado.
+   *
+   * 178% × .52 ≈ 93%
+   *
+   * Así casi toda la aplicación web
+   * cabe dentro del viewport móvil.
+   */
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .home-scene
+    [class*="camera__stage"] {
+      scale:
+        0.52;
+
+      margin-left:
+        -39%;
+    }
+
   }
 
 
@@ -300,16 +471,37 @@
 
   .sales-scene
   .sales-workspace {
-    min-width: 0;
+    min-width:
+      0;
   }
 
 
   .sales-scene
   .sales-metrics {
-    position: relative;
+    position:
+      relative;
 
     z-index:
       2;
+  }
+
+
+  /*
+   * Plano general inicial.
+   */
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .sales-scene
+    [class*="camera__stage"] {
+      scale:
+        0.52;
+
+      margin-left:
+        -38%;
+    }
+
   }
 
 
@@ -317,6 +509,8 @@
   /* ========================================================
      SLIDE 3
      INVENTARIO MÓVIL
+
+     NO TIENE INTRO WEB.
      ======================================================== */
 
   .inventory-mobile-scene
@@ -329,6 +523,9 @@
 
     margin-left:
       0;
+
+    scale:
+      1;
   }
 
 
@@ -398,6 +595,11 @@
      ÓRDENES DE SERVICIO
      ======================================================== */
 
+
+  /* ========================================================
+     LISTADO
+     ======================================================== */
+
   .order-service-scene--list
   .order-service-camera__stage {
     width:
@@ -408,6 +610,30 @@
   }
 
 
+  /*
+   * Plano completo inicial.
+   */
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .order-service-scene--list
+    .order-service-camera__stage {
+      scale:
+        0.52;
+
+      margin-left:
+        -38%;
+    }
+
+  }
+
+
+
+  /* ========================================================
+     FORMULARIO
+     ======================================================== */
+
   .order-service-scene--form
   .order-service-camera__stage {
     width:
@@ -417,6 +643,11 @@
       -63%;
   }
 
+
+
+  /* ========================================================
+     LISTADO ACTUALIZADO
+     ======================================================== */
 
   .order-service-scene--updated-list
   .order-service-camera__stage {
@@ -441,6 +672,11 @@
      REPORTES
      ======================================================== */
 
+
+  /* ========================================================
+     REPORTES — OVERVIEW
+     ======================================================== */
+
   .reports-scene--overview
   .reports-camera__stage {
     width:
@@ -450,6 +686,32 @@
       -18%;
   }
 
+
+  /*
+   * Reportes necesita algo menos de reducción
+   * porque su escenario responsive no es tan
+   * ancho como Home/Ventas.
+   */
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .reports-scene--overview
+    .reports-camera__stage {
+      scale:
+        0.58;
+
+      margin-left:
+        -29%;
+    }
+
+  }
+
+
+
+  /* ========================================================
+     REPORTES — DETAIL
+     ======================================================== */
 
   .reports-scene--report
   .reports-camera__stage {
@@ -482,17 +744,6 @@
   /* ========================================================
      TOASTS / MENSAJES VERDES
      ======================================================== */
-
-  /*
-   * En desktop estos mensajes funcionan como
-   * pequeñas notificaciones laterales.
-   *
-   * En móvil, ese ancho reducido provoca que
-   * cada palabra termine en una línea distinta.
-   *
-   * Los convertimos en una notificación
-   * horizontal centrada.
-   */
 
   .sales-toast,
   .order-scene-toast {
@@ -534,11 +785,6 @@
     line-height:
       1.35;
 
-    /*
-     * Conservamos la animación vertical,
-     * añadiendo translateX para centrarlo.
-     */
-
     transform:
       translate(
         -50%,
@@ -547,12 +793,6 @@
       scale(0.97);
   }
 
-
-  /*
-   * Es importante sobrescribir también el
-   * estado visible, porque las reglas originales
-   * de desktop cambian transform.
-   */
 
   .sales-toast--visible,
   .order-scene-toast--visible {
@@ -567,9 +807,11 @@
 
   .sales-toast p,
   .order-scene-toast p {
-    min-width: 0;
+    min-width:
+      0;
 
-    margin: 0;
+    margin:
+      0;
 
     font-size:
       1em;
@@ -590,10 +832,6 @@
       normal;
   }
 
-
-  /*
-   * El check también se hace más discreto.
-   */
 
   .sales-toast__check,
   .order-scene-toast__check {
@@ -748,6 +986,21 @@
   }
 
 
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .home-scene
+    [class*="camera__stage"] {
+      scale:
+        0.5;
+
+      margin-left:
+        -41%;
+    }
+
+  }
+
+
 
   /* ========================================================
      SALES
@@ -770,6 +1023,21 @@
   }
 
 
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .sales-scene
+    [class*="camera__stage"] {
+      scale:
+        0.5;
+
+      margin-left:
+        -40%;
+    }
+
+  }
+
+
 
   /* ========================================================
      INVENTORY
@@ -782,6 +1050,9 @@
 
     margin-left:
       0;
+
+    scale:
+      1;
   }
 
 
@@ -813,6 +1084,21 @@
 
     margin-left:
       -49%;
+  }
+
+
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .order-service-scene--list
+    .order-service-camera__stage {
+      scale:
+        0.5;
+
+      margin-left:
+        -40%;
+    }
+
   }
 
 
@@ -868,6 +1154,21 @@
   }
 
 
+  @supports (scale: 1) {
+
+    .fenix-demo-frame__viewport--intro-hold
+    .reports-scene--overview
+    .reports-camera__stage {
+      scale:
+        0.56;
+
+      margin-left:
+        -31%;
+    }
+
+  }
+
+
 
   /* ========================================================
      REPORTS — DETAIL
@@ -892,7 +1193,7 @@
 
 
   /* ========================================================
-     TOASTS EN TELÉFONOS ESTRECHOS
+     TOASTS
      ======================================================== */
 
   .sales-toast,
