@@ -1,3 +1,9 @@
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
 import "./OptionalModulesAnimation.css";
 
 import FenixTopbar
@@ -10,9 +16,9 @@ import useOptionalModulesTimeline
   from "../../hooks/useOptionalModulesTimeline";
 
 
-/* ==========================================================
+/* =========================================
    MODULE DATA
-   ========================================================== */
+   ========================================= */
 
 const modules = [
   {
@@ -200,14 +206,15 @@ const accountNavigation = [
 ];
 
 
-/* ==========================================================
+/* =========================================
    SIDEBAR ITEM
-   ========================================================== */
+   ========================================= */
 
 function SidebarItem({
   label,
   icon,
   active = false,
+  entering = false,
 }) {
   return (
     <div
@@ -216,6 +223,10 @@ function SidebarItem({
 
         active
           ? "optional-sidebar__item--active"
+          : "",
+
+        entering
+          ? "optional-sidebar__item--entering"
           : "",
       ]
         .filter(Boolean)
@@ -237,9 +248,9 @@ function SidebarItem({
 }
 
 
-/* ==========================================================
+/* =========================================
    MODULE CARD
-   ========================================================== */
+   ========================================= */
 
 function OptionalModuleCard({
   module,
@@ -291,9 +302,9 @@ function OptionalModuleCard({
 }
 
 
-/* ==========================================================
+/* =========================================
    ANIMATION
-   ========================================================== */
+   ========================================= */
 
 function OptionalModulesAnimation() {
   const {
@@ -303,9 +314,92 @@ function OptionalModulesAnimation() {
     useOptionalModulesTimeline();
 
 
+  /*
+   * Guardamos cuáles módulos estaban activos
+   * en el estado anterior.
+   *
+   * Esto nos permite detectar únicamente
+   * los que ACABAN DE APARECER.
+   */
+
+  const previousModulesRef =
+    useRef(activeModules);
+
+
+  const [
+    enteringModules,
+    setEnteringModules,
+  ] = useState([]);
+
+
+  useEffect(() => {
+    const previousModules =
+      previousModulesRef.current;
+
+
+    const newlyActivatedModules =
+      activeModules.filter(
+        (moduleId) =>
+          !previousModules.includes(
+            moduleId
+          )
+      );
+
+
+    /*
+     * Solo resaltamos módulos que acaban
+     * de pasar de apagados a activos.
+     *
+     * El estado inicial no hace flash.
+     */
+
+    if (
+      newlyActivatedModules.length >
+      0
+    ) {
+      setEnteringModules(
+        newlyActivatedModules
+      );
+
+
+      const clearEnteringTimer =
+        setTimeout(() => {
+          setEnteringModules([]);
+        }, 650);
+
+
+      previousModulesRef.current =
+        activeModules;
+
+
+      return () => {
+        clearTimeout(
+          clearEnteringTimer
+        );
+      };
+    }
+
+
+    previousModulesRef.current =
+      activeModules;
+
+    setEnteringModules([]);
+
+    return undefined;
+
+  }, [activeModules]);
+
+
   const isModuleActive =
     (moduleId) =>
       activeModules.includes(
+        moduleId
+      );
+
+
+  const isModuleEntering =
+    (moduleId) =>
+      enteringModules.includes(
         moduleId
       );
 
@@ -370,6 +464,12 @@ function OptionalModulesAnimation() {
                     );
 
 
+                  const entering =
+                    isModuleEntering(
+                      module.id
+                    );
+
+
                   return (
                     <div
                       key={
@@ -380,6 +480,10 @@ function OptionalModulesAnimation() {
 
                         active
                           ? "optional-sidebar__dynamic--visible"
+                          : "",
+
+                        entering
+                          ? "optional-sidebar__dynamic--entering"
                           : "",
                       ]
                         .filter(Boolean)
@@ -392,6 +496,9 @@ function OptionalModulesAnimation() {
                         }
                         icon={
                           module.icon
+                        }
+                        entering={
+                          entering
                         }
                       />
 
@@ -473,7 +580,7 @@ function OptionalModulesAnimation() {
 
 
                 <span className="optional-settings__collapse">
-                 ⌃
+                  ⌃
                 </span>
 
               </header>

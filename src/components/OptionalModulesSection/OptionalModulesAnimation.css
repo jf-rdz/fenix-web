@@ -208,6 +208,9 @@
   color:
     #344054;
 
+  background:
+    transparent;
+
   font-size:
     0.88em;
 
@@ -216,11 +219,15 @@
 
   transition:
     background
-      280ms
+      320ms
       var(--ease-fenix),
 
     color
-      280ms
+      320ms
+      var(--ease-fenix),
+
+    box-shadow
+      320ms
       var(--ease-fenix);
 }
 
@@ -228,6 +235,15 @@
 .optional-sidebar__item svg {
   flex:
     0 0 auto;
+
+  transition:
+    color
+      320ms
+      var(--ease-fenix),
+
+    stroke
+      320ms
+      var(--ease-fenix);
 }
 
 
@@ -278,6 +294,39 @@
 
   transform:
     translateX(0);
+}
+
+
+
+/* ==========================================================
+   NEW MODULE ENTRANCE HIGHLIGHT
+
+   El módulo acaba de ser activado.
+
+   Navy + blanco brevemente.
+   Después vuelve al estado natural.
+   ========================================================== */
+
+.optional-sidebar__item--entering {
+  animation:
+    optionalSidebarModuleEntering
+    650ms
+    var(--ease-fenix)
+    both;
+}
+
+
+.optional-sidebar__item--entering svg {
+  animation:
+    optionalSidebarIconEntering
+    650ms
+    var(--ease-fenix)
+    both;
+}
+
+
+.optional-sidebar__dynamic--entering {
+  position: relative;
 }
 
 
@@ -847,7 +896,7 @@
 
 
 /* ==========================================================
-   ENTRANCE
+   INITIAL DEMO ENTRANCE
    ========================================================== */
 
 @keyframes optionalDemoEntrance {
@@ -867,6 +916,108 @@
     transform:
       translateY(0)
       scale(1);
+  }
+
+}
+
+
+
+/* ==========================================================
+   SIDEBAR MODULE ENTRANCE
+
+   Primeros ~40%:
+   conserva el mismo navy de módulo activo.
+
+   Después:
+   vuelve suavemente al estado natural.
+   ========================================================== */
+
+@keyframes optionalSidebarModuleEntering {
+
+  0% {
+    background:
+      var(--fenix-navy);
+
+    color:
+      #ffffff;
+
+    box-shadow:
+      0 0.45em
+      1.15em
+      rgba(
+        29,
+        41,
+        75,
+        0.18
+      );
+  }
+
+
+  38% {
+    background:
+      var(--fenix-navy);
+
+    color:
+      #ffffff;
+
+    box-shadow:
+      0 0.45em
+      1.15em
+      rgba(
+        29,
+        41,
+        75,
+        0.18
+      );
+  }
+
+
+  100% {
+    background:
+      transparent;
+
+    color:
+      #344054;
+
+    box-shadow:
+      0 0 0
+      rgba(
+        29,
+        41,
+        75,
+        0
+      );
+  }
+
+}
+
+
+@keyframes optionalSidebarIconEntering {
+
+  0% {
+    color:
+      #ffffff;
+
+    stroke:
+      #ffffff;
+  }
+
+
+  38% {
+    color:
+      #ffffff;
+
+    stroke:
+      #ffffff;
+  }
+
+
+  100% {
+    color:
+      currentColor;
+
+    stroke:
+      currentColor;
   }
 
 }
