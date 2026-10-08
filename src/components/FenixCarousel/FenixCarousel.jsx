@@ -4,12 +4,14 @@ import {
 } from "react";
 
 import "./FenixCarousel.css";
+import "./FenixCarouselResponsive.css";
 
 import HomeScene from "./scenes/HomeScene";
 import SalesScene from "./scenes/SalesScene";
 import InventoryMobileScene from "./scenes/InventoryMobileScene";
 import OrderServiceScene from "./scenes/OrderServiceScene";
 import ReportsScene from "./scenes/ReportsScene";
+
 
 const slides = [
   {
@@ -48,18 +50,25 @@ const slides = [
   },
 ];
 
-function FenixCarousel() {
-  const [currentSlide, setCurrentSlide] =
-    useState(0);
 
-  const [cycle, setCycle] =
-    useState(0);
+function FenixCarousel() {
+  const [
+    currentSlide,
+    setCurrentSlide,
+  ] = useState(0);
+
+  const [
+    cycle,
+    setCycle,
+  ] = useState(0);
+
 
   const slide =
     slides[currentSlide];
 
   const Scene =
     slide.component;
+
 
   useEffect(() => {
     const timer =
@@ -76,16 +85,22 @@ function FenixCarousel() {
         );
       }, slide.duration);
 
+
     return () => {
       clearTimeout(timer);
     };
+
   }, [
     currentSlide,
     slide.duration,
   ]);
 
+
   const goToSlide = (index) => {
-    if (index === currentSlide) {
+    if (
+      index ===
+      currentSlide
+    ) {
       setCycle(
         (current) =>
           current + 1
@@ -93,6 +108,7 @@ function FenixCarousel() {
 
       return;
     }
+
 
     setCurrentSlide(index);
 
@@ -102,32 +118,44 @@ function FenixCarousel() {
     );
   };
 
+
   return (
     <div className="fenix-carousel">
+
       <div className="fenix-demo-frame">
+
         <div className="fenix-demo-frame__topbar">
+
           <div className="fenix-demo-frame__dots">
             <span />
             <span />
             <span />
           </div>
 
+
           <div className="fenix-demo-frame__title">
             Fénix · {slide.label}
           </div>
+
         </div>
 
+
         <div className="fenix-demo-frame__viewport">
+
           <Scene
             key={`${slide.id}-${cycle}`}
           />
+
         </div>
+
       </div>
+
 
       <div
         className="fenix-carousel__progress"
         aria-hidden="true"
       >
+
         <span
           key={`${slide.id}-${cycle}`}
           style={{
@@ -135,17 +163,23 @@ function FenixCarousel() {
               `${slide.duration}ms`,
           }}
         />
+
       </div>
 
+
       <div className="fenix-carousel__indicators">
+
         {slides.map(
           (item, index) => (
+
             <button
               key={item.id}
               type="button"
               className={[
                 "fenix-carousel__indicator",
-                index === currentSlide
+
+                index ===
+                currentSlide
                   ? "fenix-carousel__indicator--active"
                   : "",
               ]
@@ -157,11 +191,15 @@ function FenixCarousel() {
               aria-label={`Mostrar ${item.label}`}
               title={item.label}
             />
+
           )
         )}
+
       </div>
+
     </div>
   );
 }
+
 
 export default FenixCarousel;

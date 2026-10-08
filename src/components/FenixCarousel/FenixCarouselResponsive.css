@@ -1,0 +1,969 @@
+/* ==========================================================
+   FÉNIX CAROUSEL
+   RESPONSIVE LAYER
+
+   Desktop:
+   >= 1100px
+
+   Tablet:
+   768px - 1099px
+
+   Mobile:
+   < 768px
+
+   Small mobile:
+   < 480px
+   ========================================================== */
+
+
+/* ==========================================================
+   1. PROTECCIONES GENERALES
+   ========================================================== */
+
+.fenix-carousel {
+  min-width: 0;
+  max-width: 100%;
+}
+
+
+.fenix-demo-frame {
+  min-width: 0;
+}
+
+
+.fenix-demo-frame__viewport {
+  min-width: 0;
+  min-height: 0;
+}
+
+
+.fenix-demo-frame__viewport
+[class*="camera__stage"] {
+  transition:
+    width 380ms var(--ease-fenix),
+    margin-left 380ms var(--ease-fenix);
+}
+
+
+
+/* ==========================================================
+   2. TABLET
+   ========================================================== */
+
+@media (max-width: 1099px) {
+
+  .fenix-carousel {
+    width: min(
+      100%,
+      980px
+    );
+
+    margin-inline: auto;
+
+    aspect-ratio:
+      16 / 11;
+  }
+
+
+  .fenix-demo-frame {
+    border-radius:
+      18px;
+  }
+
+
+  .fenix-demo-frame__topbar {
+    padding-inline:
+      15px;
+  }
+
+
+  .fenix-demo-frame__title {
+    font-size:
+      0.78rem;
+  }
+
+
+  .fenix-demo-frame__dots {
+    gap:
+      5px;
+  }
+
+
+  .fenix-demo-frame__dots span {
+    width:
+      8px;
+
+    height:
+      8px;
+  }
+
+
+  .fenix-demo-frame__viewport
+  [class*="camera__stage"] {
+    width:
+      112%;
+
+    margin-left:
+      -6%;
+  }
+
+
+  .inventory-mobile-scene
+  [class*="camera__stage"] {
+    width:
+      100%;
+
+    margin-left:
+      0;
+  }
+
+
+  .fenix-carousel__progress {
+    bottom:
+      12px;
+  }
+
+
+  .fenix-carousel__indicators {
+    bottom:
+      -23px;
+  }
+
+}
+
+
+
+/* ==========================================================
+   3. MOBILE
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+  /* ========================================================
+     CARRUSEL GENERAL
+     ======================================================== */
+
+  .fenix-carousel {
+    width:
+      100%;
+
+    margin:
+      0 auto;
+
+    aspect-ratio:
+      4 / 5;
+  }
+
+
+  .fenix-demo-frame {
+    width:
+      100%;
+
+    height:
+      100%;
+
+    overflow:
+      hidden;
+
+    border-radius:
+      16px;
+
+    box-shadow:
+      0 14px 34px
+      rgba(
+        29,
+        41,
+        75,
+        0.14
+      );
+  }
+
+
+
+  /* ========================================================
+     FRAME SUPERIOR
+     ======================================================== */
+
+  .fenix-demo-frame__topbar {
+    height:
+      6.5%;
+
+    min-height:
+      28px;
+
+    padding:
+      0 11px;
+  }
+
+
+  .fenix-demo-frame__viewport {
+    height:
+      93.5%;
+
+    overflow:
+      hidden;
+  }
+
+
+  .fenix-demo-frame__dots {
+    gap:
+      4px;
+  }
+
+
+  .fenix-demo-frame__dots span {
+    width:
+      6px;
+
+    height:
+      6px;
+  }
+
+
+  .fenix-demo-frame__title {
+    min-width: 0;
+
+    font-size:
+      0.67rem;
+
+    white-space:
+      nowrap;
+
+    overflow:
+      hidden;
+
+    text-overflow:
+      ellipsis;
+  }
+
+
+
+  /* ========================================================
+     ESCENARIO BASE PARA SLIDES DESKTOP
+     ======================================================== */
+
+  .fenix-demo-frame__viewport
+  [class*="camera__stage"] {
+    width:
+      180%;
+
+    height:
+      100%;
+  }
+
+
+
+  /* ========================================================
+     SLIDE 1
+     HOME / PANEL DE CONTROL
+     ======================================================== */
+
+  .home-scene
+  [class*="camera__stage"] {
+    width:
+      178%;
+
+    margin-left:
+      -35%;
+  }
+
+
+  .home-scene
+  .fenix-app {
+    font-size:
+      7.1px;
+  }
+
+
+
+  /* ========================================================
+     SLIDE 2
+     VENTA MOSTRADOR
+     ======================================================== */
+
+  .sales-scene
+  [class*="camera__stage"] {
+    width:
+      176%;
+
+    margin-left:
+      -48%;
+  }
+
+
+  .sales-scene
+  .sales-app {
+    font-size:
+      7.5px;
+  }
+
+
+  .sales-scene
+  .sales-workspace {
+    min-width: 0;
+  }
+
+
+  .sales-scene
+  .sales-metrics {
+    position: relative;
+
+    z-index:
+      2;
+  }
+
+
+
+  /* ========================================================
+     SLIDE 3
+     INVENTARIO MÓVIL
+     ======================================================== */
+
+  .inventory-mobile-scene
+  [class*="camera__stage"] {
+    width:
+      100%;
+
+    height:
+      100%;
+
+    margin-left:
+      0;
+  }
+
+
+  .inventory-mobile-scene
+  .inventory-phone-showcase {
+    width:
+      100%;
+
+    height:
+      100%;
+
+    display:
+      grid;
+
+    place-items:
+      center;
+
+    padding:
+      0.8em;
+  }
+
+
+  .inventory-mobile-scene
+  .inventory-phone-shell {
+    width:
+      auto;
+
+    height:
+      91%;
+
+    max-width:
+      88%;
+
+    max-height:
+      91%;
+
+    margin:
+      0 auto;
+
+    aspect-ratio:
+      28.5 / 57;
+
+    font-size:
+      7px;
+
+    padding:
+      0.62em;
+
+    border-radius:
+      2.7em;
+  }
+
+
+  .inventory-mobile-scene
+  .inventory-phone {
+    width:
+      100%;
+
+    height:
+      100%;
+  }
+
+
+
+  /* ========================================================
+     SLIDE 4
+     ÓRDENES DE SERVICIO
+     ======================================================== */
+
+  .order-service-scene--list
+  .order-service-camera__stage {
+    width:
+      176%;
+
+    margin-left:
+      -46%;
+  }
+
+
+  .order-service-scene--form
+  .order-service-camera__stage {
+    width:
+      184%;
+
+    margin-left:
+      -63%;
+  }
+
+
+  .order-service-scene--updated-list
+  .order-service-camera__stage {
+    width:
+      178%;
+
+    margin-left:
+      -52%;
+  }
+
+
+  .order-service-scene
+  .order-service-app {
+    font-size:
+      7.25px;
+  }
+
+
+
+  /* ========================================================
+     SLIDE 5
+     REPORTES
+     ======================================================== */
+
+  .reports-scene--overview
+  .reports-camera__stage {
+    width:
+      158%;
+
+    margin-left:
+      -18%;
+  }
+
+
+  .reports-scene--report
+  .reports-camera__stage {
+    width:
+      168%;
+
+    margin-left:
+      -30%;
+  }
+
+
+  .reports-scene
+  .reports-app {
+    font-size:
+      7.35px;
+  }
+
+
+  .reports-scene
+  .reports-page-title {
+    position:
+      relative;
+
+    z-index:
+      3;
+  }
+
+
+
+  /* ========================================================
+     TOASTS / MENSAJES VERDES
+     ======================================================== */
+
+  /*
+   * En desktop estos mensajes funcionan como
+   * pequeñas notificaciones laterales.
+   *
+   * En móvil, ese ancho reducido provoca que
+   * cada palabra termine en una línea distinta.
+   *
+   * Los convertimos en una notificación
+   * horizontal centrada.
+   */
+
+  .sales-toast,
+  .order-scene-toast {
+    z-index:
+      60;
+
+    top:
+      12%;
+
+    left:
+      50%;
+
+    right:
+      auto;
+
+    width:
+      calc(
+        100% - 32px
+      );
+
+    max-width:
+      292px;
+
+    min-width:
+      0;
+
+    padding:
+      10px 12px;
+
+    gap:
+      9px;
+
+    border-radius:
+      10px;
+
+    font-size:
+      11px;
+
+    line-height:
+      1.35;
+
+    /*
+     * Conservamos la animación vertical,
+     * añadiendo translateX para centrarlo.
+     */
+
+    transform:
+      translate(
+        -50%,
+        -10px
+      )
+      scale(0.97);
+  }
+
+
+  /*
+   * Es importante sobrescribir también el
+   * estado visible, porque las reglas originales
+   * de desktop cambian transform.
+   */
+
+  .sales-toast--visible,
+  .order-scene-toast--visible {
+    transform:
+      translate(
+        -50%,
+        0
+      )
+      scale(1);
+  }
+
+
+  .sales-toast p,
+  .order-scene-toast p {
+    min-width: 0;
+
+    margin: 0;
+
+    font-size:
+      1em;
+
+    line-height:
+      1.35;
+
+    text-align:
+      left;
+
+    white-space:
+      normal;
+
+    overflow-wrap:
+      normal;
+
+    word-break:
+      normal;
+  }
+
+
+  /*
+   * El check también se hace más discreto.
+   */
+
+  .sales-toast__check,
+  .order-scene-toast__check {
+    width:
+      26px;
+
+    height:
+      26px;
+
+    min-width:
+      26px;
+
+    flex:
+      0 0 26px;
+
+    display:
+      grid;
+
+    place-items:
+      center;
+
+    font-size:
+      14px;
+  }
+
+
+
+  /* ========================================================
+     MENSAJES FINALES
+     ======================================================== */
+
+  .home-scene__message,
+  .sales-scene__message,
+  .inventory-mobile-scene__message,
+  .order-service-scene__message,
+  .reports-scene__message {
+    padding-inline:
+      8%;
+  }
+
+
+  .home-scene__message strong,
+  .sales-scene__message strong,
+  .inventory-mobile-scene__message strong,
+  .order-service-scene__message strong,
+  .reports-scene__message strong {
+    max-width:
+      100%;
+  }
+
+
+
+  /* ========================================================
+     PROGRESS
+     ======================================================== */
+
+  .fenix-carousel__progress {
+    bottom:
+      9px;
+
+    width:
+      calc(
+        100% - 24px
+      );
+
+    height:
+      3px;
+  }
+
+
+
+  /* ========================================================
+     INDICADORES
+     ======================================================== */
+
+  .fenix-carousel__indicators {
+    bottom:
+      -25px;
+
+    gap:
+      7px;
+  }
+
+
+  .fenix-carousel__indicator {
+    width:
+      8px;
+
+    height:
+      8px;
+  }
+
+
+  .fenix-carousel__indicator--active {
+    width:
+      24px;
+  }
+
+}
+
+
+
+/* ==========================================================
+   4. SMALL MOBILE
+   ========================================================== */
+
+@media (max-width: 479px) {
+
+  .fenix-carousel {
+    aspect-ratio:
+      4 / 5.3;
+  }
+
+
+  .fenix-demo-frame {
+    border-radius:
+      14px;
+  }
+
+
+  .fenix-demo-frame__topbar {
+    padding:
+      0 9px;
+  }
+
+
+  .fenix-demo-frame__title {
+    font-size:
+      0.61rem;
+  }
+
+
+
+  /* ========================================================
+     HOME
+     ======================================================== */
+
+  .home-scene
+  [class*="camera__stage"] {
+    width:
+      182%;
+
+    margin-left:
+      -38%;
+  }
+
+
+  .home-scene
+  .fenix-app {
+    font-size:
+      7px;
+  }
+
+
+
+  /* ========================================================
+     SALES
+     ======================================================== */
+
+  .sales-scene
+  [class*="camera__stage"] {
+    width:
+      180%;
+
+    margin-left:
+      -51%;
+  }
+
+
+  .sales-scene
+  .sales-app {
+    font-size:
+      7.25px;
+  }
+
+
+
+  /* ========================================================
+     INVENTORY
+     ======================================================== */
+
+  .inventory-mobile-scene
+  [class*="camera__stage"] {
+    width:
+      100%;
+
+    margin-left:
+      0;
+  }
+
+
+  .inventory-mobile-scene
+  .inventory-phone-shell {
+    height:
+      89%;
+
+    max-height:
+      89%;
+
+    max-width:
+      90%;
+
+    font-size:
+      6.65px;
+  }
+
+
+
+  /* ========================================================
+     ORDER SERVICE — LIST
+     ======================================================== */
+
+  .order-service-scene--list
+  .order-service-camera__stage {
+    width:
+      180%;
+
+    margin-left:
+      -49%;
+  }
+
+
+
+  /* ========================================================
+     ORDER SERVICE — FORM
+     ======================================================== */
+
+  .order-service-scene--form
+  .order-service-camera__stage {
+    width:
+      188%;
+
+    margin-left:
+      -66%;
+  }
+
+
+
+  /* ========================================================
+     ORDER SERVICE — UPDATED
+     ======================================================== */
+
+  .order-service-scene--updated-list
+  .order-service-camera__stage {
+    width:
+      182%;
+
+    margin-left:
+      -55%;
+  }
+
+
+  .order-service-scene
+  .order-service-app {
+    font-size:
+      7px;
+  }
+
+
+
+  /* ========================================================
+     REPORTS — OVERVIEW
+     ======================================================== */
+
+  .reports-scene--overview
+  .reports-camera__stage {
+    width:
+      162%;
+
+    margin-left:
+      -20%;
+  }
+
+
+
+  /* ========================================================
+     REPORTS — DETAIL
+     ======================================================== */
+
+  .reports-scene--report
+  .reports-camera__stage {
+    width:
+      172%;
+
+    margin-left:
+      -32%;
+  }
+
+
+  .reports-scene
+  .reports-app {
+    font-size:
+      7.05px;
+  }
+
+
+
+  /* ========================================================
+     TOASTS EN TELÉFONOS ESTRECHOS
+     ======================================================== */
+
+  .sales-toast,
+  .order-scene-toast {
+    top:
+      11.5%;
+
+    width:
+      calc(
+        100% - 24px
+      );
+
+    max-width:
+      280px;
+
+    padding:
+      9px 10px;
+
+    gap:
+      8px;
+
+    font-size:
+      10.5px;
+  }
+
+
+  .sales-toast__check,
+  .order-scene-toast__check {
+    width:
+      24px;
+
+    height:
+      24px;
+
+    min-width:
+      24px;
+
+    flex-basis:
+      24px;
+
+    font-size:
+      13px;
+  }
+
+
+
+  /* ========================================================
+     INDICADORES
+     ======================================================== */
+
+  .fenix-carousel__indicators {
+    bottom:
+      -23px;
+
+    gap:
+      6px;
+  }
+
+
+  .fenix-carousel__indicator {
+    width:
+      7px;
+
+    height:
+      7px;
+  }
+
+
+  .fenix-carousel__indicator--active {
+    width:
+      22px;
+  }
+
+}
