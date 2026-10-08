@@ -1,0 +1,111 @@
+/* ==========================================================
+   FÉNIX LANDING
+   ========================================================== */
+
+.fenix-landing {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow-x: hidden;
+
+  background:
+    var(--fenix-white);
+}
+
+
+/* ==========================================================
+   PLACEHOLDER BLOCKS
+   ========================================================== */
+
+.landing-block {
+  width: 100%;
+
+  min-height: 620px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding:
+    80px 24px;
+}
+
+
+.landing-block__inner {
+  width: min(
+    1180px,
+    100%
+  );
+
+  min-height: 420px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.landing-block h2 {
+  margin: 0;
+
+  color:
+    var(--fenix-navy);
+
+  font-family:
+    var(--font-heading);
+
+  font-size:
+    clamp(
+      2rem,
+      4vw,
+      4rem
+    );
+
+  font-weight: 700;
+}
+
+
+/* ==========================================================
+   BLOQUE 2
+   ========================================================== */
+
+.landing-block--2 {
+  background:
+    var(--fenix-background);
+}
+
+
+/* ==========================================================
+   BLOQUE 3
+   ========================================================== */
+
+.landing-block--3 {
+  background:
+    var(--fenix-white);
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+  .landing-block {
+    min-height: 520px;
+
+    padding:
+      64px 20px;
+  }
+
+
+  .landing-block__inner {
+    min-height: 340px;
+  }
+
+}
