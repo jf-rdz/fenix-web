@@ -153,57 +153,87 @@ const modules = [
 
 const primaryNavigation = [
   {
-    label: "Inicio",
-    icon: "home",
+    label:
+      "Inicio",
+
+    icon:
+      "home",
   },
 
   {
-    label: "Colaboradores",
-    icon: "userCog",
+    label:
+      "Colaboradores",
+
+    icon:
+      "userCog",
   },
 
   {
-    label: "Clientes",
-    icon: "users",
+    label:
+      "Clientes",
+
+    icon:
+      "users",
   },
 
   {
-    label: "Agenda",
-    icon: "calendar",
+    label:
+      "Agenda",
+
+    icon:
+      "calendar",
   },
 ];
 
 
 const secondaryNavigation = [
   {
-    label: "Contabilidad",
-    icon: "card",
+    label:
+      "Contabilidad",
+
+    icon:
+      "card",
   },
 
   {
-    label: "Reportes",
-    icon: "file",
+    label:
+      "Reportes",
+
+    icon:
+      "file",
   },
 ];
 
 
 const accountNavigation = [
   {
-    label: "Suscripciones",
-    icon: "card",
+    label:
+      "Suscripciones",
+
+    icon:
+      "card",
   },
 
   {
-    label: "Configuración",
-    icon: "settings",
-    active: true,
+    label:
+      "Configuración",
+
+    icon:
+      "settings",
+
+    active:
+      true,
   },
 
   {
-    label: "Cerrar sesión",
-    icon: "logout",
+    label:
+      "Cerrar sesión",
+
+    icon:
+      "logout",
   },
 ];
+
 
 
 /* =========================================
@@ -248,6 +278,7 @@ function SidebarItem({
 }
 
 
+
 /* =========================================
    MODULE CARD
    ========================================= */
@@ -272,6 +303,7 @@ function OptionalModuleCard({
         <strong>
           {module.title}
         </strong>
+
 
         <p>
           {module.description}
@@ -302,24 +334,27 @@ function OptionalModuleCard({
 }
 
 
+
 /* =========================================
    ANIMATION
    ========================================= */
 
-function OptionalModulesAnimation() {
+function OptionalModulesAnimation({
+  isActive = true,
+}) {
   const {
     activeModules,
     savedPulse,
+    cameraPhase,
   } =
-    useOptionalModulesTimeline();
+    useOptionalModulesTimeline(
+      isActive
+    );
 
 
   /*
-   * Guardamos cuáles módulos estaban activos
-   * en el estado anterior.
-   *
-   * Esto nos permite detectar únicamente
-   * los que ACABAN DE APARECER.
+   * Detectamos únicamente módulos
+   * que acaban de aparecer.
    */
 
   const previousModulesRef =
@@ -333,6 +368,22 @@ function OptionalModulesAnimation() {
 
 
   useEffect(() => {
+    /*
+     * Mientras no estamos visibles,
+     * sincronizamos el estado pero no
+     * disparamos highlights.
+     */
+
+    if (!isActive) {
+      previousModulesRef.current =
+        activeModules;
+
+      setEnteringModules([]);
+
+      return undefined;
+    }
+
+
     const previousModules =
       previousModulesRef.current;
 
@@ -346,13 +397,6 @@ function OptionalModulesAnimation() {
       );
 
 
-    /*
-     * Solo resaltamos módulos que acaban
-     * de pasar de apagados a activos.
-     *
-     * El estado inicial no hace flash.
-     */
-
     if (
       newlyActivatedModules.length >
       0
@@ -362,7 +406,7 @@ function OptionalModulesAnimation() {
       );
 
 
-      const clearEnteringTimer =
+      const clearTimer =
         setTimeout(() => {
           setEnteringModules([]);
         }, 650);
@@ -374,7 +418,7 @@ function OptionalModulesAnimation() {
 
       return () => {
         clearTimeout(
-          clearEnteringTimer
+          clearTimer
         );
       };
     }
@@ -387,7 +431,10 @@ function OptionalModulesAnimation() {
 
     return undefined;
 
-  }, [activeModules]);
+  }, [
+    activeModules,
+    isActive,
+  ]);
 
 
   const isModuleActive =
@@ -406,257 +453,284 @@ function OptionalModulesAnimation() {
 
   return (
     <div
-      className="optional-modules-demo"
+      className={[
+        "optional-modules-demo",
+
+        `optional-modules-demo--camera-${cameraPhase}`,
+
+        isActive
+          ? "optional-modules-demo--running"
+          : "optional-modules-demo--waiting",
+      ].join(" ")}
       aria-hidden="true"
     >
 
-      <div className="optional-modules-demo__screen">
+      {/* =================================
+          RESPONSIVE CAMERA VIEWPORT
+          ================================= */}
 
-        {/* ===================================
-            TOPBAR REAL DE FÉNIX
-            =================================== */}
+      <div className="optional-modules-demo__viewport">
 
-        <FenixTopbar />
-
-
-        <div className="optional-modules-demo__body">
+        <div className="optional-modules-demo__screen">
 
 
           {/* ===================================
-              SIDEBAR
+              TOPBAR REAL DE FÉNIX
               =================================== */}
 
-          <aside className="optional-sidebar">
+          <FenixTopbar />
 
-            <div className="optional-sidebar__scroll">
 
-              <div className="optional-sidebar__nav-label">
+          <div className="optional-modules-demo__body">
 
-                <strong>
-                  NAVEGACIÓN
-                </strong>
 
-                <span>
-                  Panel de control
-                </span>
+            {/* ===================================
+                SIDEBAR
+                =================================== */}
+
+            <aside className="optional-sidebar">
+
+              <div className="optional-sidebar__scroll">
+
+                <div className="optional-sidebar__nav-label">
+
+                  <strong>
+                    NAVEGACIÓN
+                  </strong>
+
+                  <span>
+                    Panel de control
+                  </span>
+
+                </div>
+
+
+                {primaryNavigation.map(
+                  (item) => (
+
+                    <SidebarItem
+                      key={
+                        item.label
+                      }
+                      {...item}
+                    />
+
+                  )
+                )}
+
+
+                {modules.map(
+                  (module) => {
+
+                    const active =
+                      isModuleActive(
+                        module.id
+                      );
+
+
+                    const entering =
+                      isModuleEntering(
+                        module.id
+                      );
+
+
+                    return (
+                      <div
+                        key={
+                          module.id
+                        }
+                        className={[
+                          "optional-sidebar__dynamic",
+
+                          active
+                            ? "optional-sidebar__dynamic--visible"
+                            : "",
+
+                          entering
+                            ? "optional-sidebar__dynamic--entering"
+                            : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+
+                        <SidebarItem
+                          label={
+                            module.sidebarLabel
+                          }
+
+                          icon={
+                            module.icon
+                          }
+
+                          entering={
+                            entering
+                          }
+                        />
+
+                      </div>
+                    );
+                  }
+                )}
+
+
+                {secondaryNavigation.map(
+                  (item) => (
+
+                    <SidebarItem
+                      key={
+                        item.label
+                      }
+                      {...item}
+                    />
+
+                  )
+                )}
 
               </div>
 
 
-              {primaryNavigation.map(
-                (item) => (
+              <div className="optional-sidebar__account">
 
-                  <SidebarItem
-                    key={item.label}
-                    {...item}
-                  />
-
-                )
-              )}
+                <strong className="optional-sidebar__account-title">
+                  CUENTA
+                </strong>
 
 
-              {modules.map(
-                (module) => {
+                {accountNavigation.map(
+                  (item) => (
 
-                  const active =
-                    isModuleActive(
-                      module.id
-                    );
-
-
-                  const entering =
-                    isModuleEntering(
-                      module.id
-                    );
-
-
-                  return (
-                    <div
+                    <SidebarItem
                       key={
-                        module.id
+                        item.label
                       }
+                      {...item}
+                    />
+
+                  )
+                )}
+
+              </div>
+
+            </aside>
+
+
+
+            {/* ===================================
+                WORKSPACE
+                =================================== */}
+
+            <main className="optional-workspace">
+
+              <section className="optional-settings">
+
+
+                {/* ===============================
+                    SECTION HEADER
+                    =============================== */}
+
+                <header className="optional-settings__header">
+
+                  <div className="optional-settings__header-icon">
+                    ⠿
+                  </div>
+
+
+                  <div>
+
+                    <strong>
+                      Módulos Opcionales
+                    </strong>
+
+                    <p>
+                      Selecciona los módulos opcionales que usarás
+                    </p>
+
+                  </div>
+
+
+                  <span className="optional-settings__collapse">
+                    ⌃
+                  </span>
+
+                </header>
+
+
+
+                {/* ===============================
+                    CONTENT
+                    =============================== */}
+
+                <div className="optional-settings__content">
+
+                  <div className="optional-settings__intro">
+
+                    <p>
+                      Activa solo los módulos que necesites, de acuerdo a tu actividad empresarial.
+                    </p>
+
+
+                    <div
                       className={[
-                        "optional-sidebar__dynamic",
+                        "optional-saved-badge",
 
-                        active
-                          ? "optional-sidebar__dynamic--visible"
-                          : "",
-
-                        entering
-                          ? "optional-sidebar__dynamic--entering"
+                        savedPulse
+                          ? "optional-saved-badge--pulse"
                           : "",
                       ]
                         .filter(Boolean)
                         .join(" ")}
                     >
 
-                      <SidebarItem
-                        label={
-                          module.sidebarLabel
-                        }
-                        icon={
-                          module.icon
-                        }
-                        entering={
-                          entering
-                        }
-                      />
+                      <span>
+                        ✓
+                      </span>
+
+                      Cambios guardados al momento
 
                     </div>
-                  );
-                }
-              )}
 
-
-              {secondaryNavigation.map(
-                (item) => (
-
-                  <SidebarItem
-                    key={item.label}
-                    {...item}
-                  />
-
-                )
-              )}
-
-            </div>
-
-
-            <div className="optional-sidebar__account">
-
-              <strong className="optional-sidebar__account-title">
-                CUENTA
-              </strong>
-
-
-              {accountNavigation.map(
-                (item) => (
-
-                  <SidebarItem
-                    key={item.label}
-                    {...item}
-                  />
-
-                )
-              )}
-
-            </div>
-
-          </aside>
+                  </div>
 
 
 
-          {/* ===================================
-              WORKSPACE
-              =================================== */}
+                  {/* ===============================
+                      MODULE GRID
+                      =============================== */}
 
-          <main className="optional-workspace">
+                  <div className="optional-modules-grid">
 
-            <section className="optional-settings">
+                    {modules.map(
+                      (module) => (
 
+                        <OptionalModuleCard
+                          key={
+                            module.id
+                          }
 
-              {/* ===============================
-                  SECTION HEADER
-                  =============================== */}
+                          module={
+                            module
+                          }
 
-              <header className="optional-settings__header">
+                          enabled={
+                            isModuleActive(
+                              module.id
+                            )
+                          }
+                        />
 
-                <div className="optional-settings__header-icon">
-                  ⠿
-                </div>
-
-
-                <div>
-
-                  <strong>
-                    Módulos Opcionales
-                  </strong>
-
-                  <p>
-                    Selecciona los módulos opcionales que usarás
-                  </p>
-
-                </div>
-
-
-                <span className="optional-settings__collapse">
-                  ⌃
-                </span>
-
-              </header>
-
-
-
-              {/* ===============================
-                  CONTENT
-                  =============================== */}
-
-              <div className="optional-settings__content">
-
-                <div className="optional-settings__intro">
-
-                  <p>
-                    Activa solo los módulos que necesites, de acuerdo a tu actividad empresarial.
-                  </p>
-
-
-                  <div
-                    className={[
-                      "optional-saved-badge",
-
-                      savedPulse
-                        ? "optional-saved-badge--pulse"
-                        : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                  >
-
-                    <span>
-                      ✓
-                    </span>
-
-                    Cambios guardados al momento
+                      )
+                    )}
 
                   </div>
 
                 </div>
 
+              </section>
 
+            </main>
 
-                {/* ===============================
-                    MODULE GRID
-                    =============================== */}
-
-                <div className="optional-modules-grid">
-
-                  {modules.map(
-                    (module) => (
-
-                      <OptionalModuleCard
-                        key={
-                          module.id
-                        }
-                        module={
-                          module
-                        }
-                        enabled={
-                          isModuleActive(
-                            module.id
-                          )
-                        }
-                      />
-
-                    )
-                  )}
-
-                </div>
-
-              </div>
-
-            </section>
-
-          </main>
+          </div>
 
         </div>
 

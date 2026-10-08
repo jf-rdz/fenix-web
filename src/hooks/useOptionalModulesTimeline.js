@@ -38,16 +38,28 @@ const MODULE_PRESETS = {
 };
 
 
-function useOptionalModulesTimeline() {
+function useOptionalModulesTimeline(
+  isActive = true
+) {
   const [
     preset,
     setPreset,
   ] = useState("full");
 
+
   const [
     savedPulse,
     setSavedPulse,
   ] = useState(false);
+
+
+  const [
+    cameraPhase,
+    setCameraPhase,
+  ] = useState(
+    "overview"
+  );
+
 
   const [
     cycle,
@@ -57,155 +69,375 @@ function useOptionalModulesTimeline() {
 
   useEffect(() => {
     /*
-     * Reiniciamos siempre desde una
-     * configuración completa.
+     * Fuera del viewport dejamos la
+     * escena preparada desde el inicio.
+     *
+     * Cuando vuelva a entrar, la historia
+     * comenzará desde cero.
      */
+
+    if (!isActive) {
+      setPreset("full");
+
+      setSavedPulse(false);
+
+      setCameraPhase(
+        "overview"
+      );
+
+      return undefined;
+    }
+
+
+    /* =====================================
+       RESET
+       ===================================== */
 
     setPreset("full");
+
     setSavedPulse(false);
 
+    setCameraPhase(
+      "overview"
+    );
+
+
+    const timers = [];
+
+
+    const schedule = (
+      callback,
+      delay
+    ) => {
+      const timer =
+        setTimeout(
+          callback,
+          delay
+        );
+
+      timers.push(timer);
+    };
+
+
+
+    /* =====================================
+       MOBILE CAMERA
+
+       Desktop ignora visualmente estas
+       fases mediante CSS.
+       ===================================== */
+
 
     /*
-     * 2 s
+     * 0 - 0.9 s
      *
-     * Simplificamos Fénix para una
-     * operación principalmente comercial.
+     * Mostramos la pantalla completa.
      */
 
-    const commerceTimer =
-      setTimeout(() => {
-        setPreset("commerce");
-      }, 2000);
+    schedule(
+      () => {
+        setCameraPhase(
+          "modules"
+        );
+      },
+      900
+    );
 
 
-    const commerceSavedTimer =
-      setTimeout(() => {
+
+    /* =====================================
+       2 s
+       COMMERCE
+       ===================================== */
+
+    schedule(
+      () => {
+        setPreset(
+          "commerce"
+        );
+      },
+      2000
+    );
+
+
+    schedule(
+      () => {
         setSavedPulse(true);
-      }, 2500);
+      },
+      2500
+    );
 
 
-    const commerceSavedEndTimer =
-      setTimeout(() => {
+    schedule(
+      () => {
         setSavedPulse(false);
-      }, 3300);
+      },
+      3300
+    );
+
+
+
+    /* =====================================
+       PREPARAMOS CÁMARA PARA VER
+       NUEVOS MÓDULOS EN SIDEBAR
+       ===================================== */
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "sidebar"
+        );
+      },
+      4350
+    );
+
+
+
+    /* =====================================
+       4.7 s
+       PRODUCTION
+
+       Materia Prima y Producción
+       reaparecen mientras observamos
+       el sidebar.
+       ===================================== */
+
+    schedule(
+      () => {
+        setPreset(
+          "production"
+        );
+      },
+      4700
+    );
+
+
+    schedule(
+      () => {
+        setSavedPulse(true);
+      },
+      5200
+    );
+
+
+    schedule(
+      () => {
+        setSavedPulse(false);
+      },
+      6000
+    );
 
 
     /*
-     * 4.7 s
-     *
-     * El negocio ahora necesita producción.
+     * Abrimos ligeramente la cámara.
      */
 
-    const productionTimer =
-      setTimeout(() => {
-        setPreset("production");
-      }, 4700);
-
-
-    const productionSavedTimer =
-      setTimeout(() => {
-        setSavedPulse(true);
-      }, 5200);
-
-
-    const productionSavedEndTimer =
-      setTimeout(() => {
-        setSavedPulse(false);
-      }, 6000);
+    schedule(
+      () => {
+        setCameraPhase(
+          "balanced"
+        );
+      },
+      5550
+    );
 
 
     /*
-     * 7.3 s
-     *
-     * Mostramos una configuración orientada
-     * a servicios.
+     * Volvemos hacia los switches.
      */
 
-    const servicesTimer =
-      setTimeout(() => {
-        setPreset("services");
-      }, 7300);
+    schedule(
+      () => {
+        setCameraPhase(
+          "modules"
+        );
+      },
+      6250
+    );
 
 
-    const servicesSavedTimer =
-      setTimeout(() => {
+
+    /* =====================================
+       7.3 s
+       SERVICES
+
+       Primero miramos el sidebar.
+       Después aparecen Servicios y
+       Órdenes de Servicio.
+       ===================================== */
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "sidebar"
+        );
+      },
+      6950
+    );
+
+
+    schedule(
+      () => {
+        setPreset(
+          "services"
+        );
+      },
+      7300
+    );
+
+
+    schedule(
+      () => {
         setSavedPulse(true);
-      }, 7800);
+      },
+      7800
+    );
 
 
-    const servicesSavedEndTimer =
-      setTimeout(() => {
+    schedule(
+      () => {
         setSavedPulse(false);
-      }, 8600);
+      },
+      8600
+    );
+
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "balanced"
+        );
+      },
+      8150
+    );
+
+
+
+    /* =====================================
+       PREPARAMOS EL REGRESO A FULL
+       ===================================== */
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "modules"
+        );
+      },
+      8800
+    );
+
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "sidebar"
+        );
+      },
+      9350
+    );
+
+
+
+    /* =====================================
+       9.6 s
+       FULL
+
+       Varios módulos reaparecen y reciben
+       el flash navy que ya aprobamos.
+       ===================================== */
+
+    schedule(
+      () => {
+        setPreset(
+          "full"
+        );
+      },
+      9600
+    );
+
+
+    schedule(
+      () => {
+        setSavedPulse(true);
+      },
+      10100
+    );
+
+
+    schedule(
+      () => {
+        setSavedPulse(false);
+      },
+      10800
+    );
+
+
+    schedule(
+      () => {
+        setCameraPhase(
+          "balanced"
+        );
+      },
+      10400
+    );
 
 
     /*
-     * 9.6 s
-     *
-     * Regresamos a una configuración amplia.
+     * Antes de reiniciar regresamos
+     * suavemente a la vista completa.
      */
 
-    const fullTimer =
-      setTimeout(() => {
-        setPreset("full");
-      }, 9600);
+    schedule(
+      () => {
+        setCameraPhase(
+          "overview"
+        );
+      },
+      11000
+    );
 
 
-    const finalSavedTimer =
-      setTimeout(() => {
-        setSavedPulse(true);
-      }, 10100);
 
+    /* =====================================
+       RESTART
+       ===================================== */
 
-    const finalSavedEndTimer =
-      setTimeout(() => {
-        setSavedPulse(false);
-      }, 10800);
-
-
-    /*
-     * Reiniciamos la microhistoria.
-     */
-
-    const restartTimer =
-      setTimeout(() => {
+    schedule(
+      () => {
         setCycle(
           (current) =>
             current + 1
         );
-      }, 11600);
+      },
+      11600
+    );
 
 
     return () => {
-      clearTimeout(commerceTimer);
-      clearTimeout(commerceSavedTimer);
-      clearTimeout(commerceSavedEndTimer);
-
-      clearTimeout(productionTimer);
-      clearTimeout(productionSavedTimer);
-      clearTimeout(productionSavedEndTimer);
-
-      clearTimeout(servicesTimer);
-      clearTimeout(servicesSavedTimer);
-      clearTimeout(servicesSavedEndTimer);
-
-      clearTimeout(fullTimer);
-      clearTimeout(finalSavedTimer);
-      clearTimeout(finalSavedEndTimer);
-
-      clearTimeout(restartTimer);
+      timers.forEach(
+        (timer) => {
+          clearTimeout(timer);
+        }
+      );
     };
 
-  }, [cycle]);
+  }, [
+    cycle,
+    isActive,
+  ]);
 
 
   return {
     preset,
 
     activeModules:
-      MODULE_PRESETS[preset],
+      MODULE_PRESETS[
+        preset
+      ],
 
     savedPulse,
+
+    cameraPhase,
   };
 }
 

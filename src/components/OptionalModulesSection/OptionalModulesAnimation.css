@@ -13,6 +13,31 @@
 }
 
 
+
+/* ==========================================================
+   CAMERA VIEWPORT
+
+   Desktop:
+   funciona simplemente como wrapper.
+
+   Mobile:
+   se convierte en una cámara.
+   ========================================================== */
+
+.optional-modules-demo__viewport {
+  width: 100%;
+
+  min-width: 0;
+
+  position: relative;
+}
+
+
+
+/* ==========================================================
+   SCREEN
+   ========================================================== */
+
 .optional-modules-demo__screen {
   width: 100%;
 
@@ -75,7 +100,7 @@
 
 
 /* ==========================================================
-   TOPBAR ADJUSTMENT
+   TOPBAR
    ========================================================== */
 
 .optional-modules-demo
@@ -188,6 +213,11 @@
 }
 
 
+
+/* ==========================================================
+   SIDEBAR ITEM
+   ========================================================== */
+
 .optional-sidebar__item {
   min-height:
     3.55em;
@@ -299,12 +329,7 @@
 
 
 /* ==========================================================
-   NEW MODULE ENTRANCE HIGHLIGHT
-
-   El módulo acaba de ser activado.
-
-   Navy + blanco brevemente.
-   Después vuelve al estado natural.
+   NEW MODULE HIGHLIGHT
    ========================================================== */
 
 .optional-sidebar__item--entering {
@@ -322,11 +347,6 @@
     650ms
     var(--ease-fenix)
     both;
-}
-
-
-.optional-sidebar__dynamic--entering {
-  position: relative;
 }
 
 
@@ -413,7 +433,8 @@
     #ffffff;
 
   box-shadow:
-    0 0.6em 1.7em
+    0 0.6em
+    1.7em
     rgba(
       29,
       41,
@@ -662,7 +683,10 @@
   grid-template-columns:
     repeat(
       2,
-      minmax(0, 1fr)
+      minmax(
+        0,
+        1fr
+      )
     );
 
   gap:
@@ -684,7 +708,10 @@
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
+    minmax(
+      0,
+      1fr
+    )
     auto;
 
   align-items: center;
@@ -710,10 +737,6 @@
 
     box-shadow
       480ms
-      var(--ease-fenix),
-
-    transform
-      480ms
       var(--ease-fenix);
 }
 
@@ -727,7 +750,8 @@
     #ffffff;
 
   box-shadow:
-    0 0.15em 0.55em
+    0 0.15em
+    0.55em
     rgba(
       11,
       147,
@@ -808,21 +832,10 @@
   background:
     var(--fenix-navy);
 
-  box-shadow:
-    inset
-    0 0 0
-    1px
-    rgba(
-      255,
-      255,
-      255,
-      0.07
-    );
-
   transition:
     background
-      420ms
-      var(--ease-fenix);
+    420ms
+    var(--ease-fenix);
 }
 
 
@@ -854,7 +867,8 @@
     );
 
   box-shadow:
-    0 1px 4px
+    0 1px
+    4px
     rgba(
       29,
       41,
@@ -896,7 +910,273 @@
 
 
 /* ==========================================================
-   INITIAL DEMO ENTRANCE
+   MOBILE CAMERA
+   ========================================================== */
+
+@media (max-width: 767px) {
+
+  /*
+   * El viewport deja de ser el tamaño
+   * natural de la aplicación y pasa a
+   * comportarse como una cámara vertical.
+   */
+
+  .optional-modules-demo__viewport {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio:
+      4 / 5;
+
+    overflow: hidden;
+
+    border:
+      1px solid
+      rgba(
+        203,
+        213,
+        224,
+        0.72
+      );
+
+    border-radius:
+      18px;
+
+    background:
+      radial-gradient(
+        circle
+        at
+        50%
+        45%,
+
+        rgba(
+          11,
+          147,
+          171,
+          0.08
+        ),
+
+        rgba(
+          247,
+          250,
+          252,
+          0
+        )
+        58%
+      ),
+      var(--fenix-background);
+
+    box-shadow:
+      0 18px
+      44px
+      rgba(
+        29,
+        41,
+        75,
+        0.13
+      );
+  }
+
+
+  /*
+   * La pantalla real conserva su
+   * proporción panorámica.
+   *
+   * Lo que cambia es la cámara exterior.
+   */
+
+  .optional-modules-demo__screen {
+    position: absolute;
+
+    left: 50%;
+
+    top: 50%;
+
+    width:
+      178%;
+
+    height:
+      auto;
+
+    aspect-ratio:
+      16 / 10;
+
+    border-radius:
+      14px;
+
+    font-size:
+      6.4px;
+
+    animation:
+      none;
+
+    will-change:
+      transform;
+
+    transition:
+      transform
+      850ms
+      var(--ease-fenix);
+  }
+
+
+
+  /* ========================================================
+     CAMERA — OVERVIEW
+
+     Se reconoce la aplicación web completa.
+     ======================================================== */
+
+  .optional-modules-demo--camera-overview
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.54);
+  }
+
+
+
+  /* ========================================================
+     CAMERA — MODULES
+
+     Zoom hacia el área principal y switches.
+     ======================================================== */
+
+  .optional-modules-demo--camera-modules
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -59%,
+        -50%
+      )
+      scale(1);
+  }
+
+
+
+  /* ========================================================
+     CAMERA — SIDEBAR
+
+     La cámara viaja hacia la izquierda justo
+     antes de que aparezcan módulos nuevos.
+     ======================================================== */
+
+  .optional-modules-demo--camera-sidebar
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -10.5%,
+        -50%
+      )
+      scale(1.05);
+  }
+
+
+
+  /* ========================================================
+     CAMERA — BALANCED
+
+     Enseñamos menú + parte de la operación
+     para recordar que ambos están conectados.
+     ======================================================== */
+
+  .optional-modules-demo--camera-balanced
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -42%,
+        -50%
+      )
+      scale(0.78);
+  }
+
+}
+
+
+
+/* ==========================================================
+   SMALL MOBILE
+   ========================================================== */
+
+@media (max-width: 479px) {
+
+  .optional-modules-demo__viewport {
+    aspect-ratio:
+      4 / 5.15;
+
+    border-radius:
+      16px;
+  }
+
+
+  .optional-modules-demo__screen {
+    width:
+      188%;
+
+    font-size:
+      6px;
+
+    border-radius:
+      12px;
+
+    transition-duration:
+      800ms;
+  }
+
+
+  .optional-modules-demo--camera-overview
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.50);
+  }
+
+
+  .optional-modules-demo--camera-modules
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -60%,
+        -50%
+      )
+      scale(1);
+  }
+
+
+  .optional-modules-demo--camera-sidebar
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -9%,
+        -50%
+      )
+      scale(1.03);
+  }
+
+
+  .optional-modules-demo--camera-balanced
+  .optional-modules-demo__screen {
+    transform:
+      translate(
+        -42%,
+        -50%
+      )
+      scale(0.74);
+  }
+
+}
+
+
+
+/* ==========================================================
+   INITIAL DESKTOP ENTRANCE
    ========================================================== */
 
 @keyframes optionalDemoEntrance {
@@ -924,12 +1204,6 @@
 
 /* ==========================================================
    SIDEBAR MODULE ENTRANCE
-
-   Primeros ~40%:
-   conserva el mismo navy de módulo activo.
-
-   Después:
-   vuelve suavemente al estado natural.
    ========================================================== */
 
 @keyframes optionalSidebarModuleEntering {
@@ -990,6 +1264,7 @@
   }
 
 }
+
 
 
 @keyframes optionalSidebarIconEntering {

@@ -3,8 +3,23 @@ import "./OptionalModulesSection.css";
 import OptionalModulesAnimation
   from "./OptionalModulesAnimation";
 
+import useInViewport
+  from "../../hooks/useInViewport";
+
 
 function OptionalModulesSection() {
+  const {
+    elementRef,
+    isInView,
+  } =
+    useInViewport({
+      threshold: 0.35,
+
+      rootMargin:
+        "0px 0px -8% 0px",
+    });
+
+
   return (
     <section
       className="optional-modules-section"
@@ -18,9 +33,16 @@ function OptionalModulesSection() {
             PRODUCT DEMO
             ================================= */}
 
-        <div className="optional-modules-section__visual">
+        <div
+          ref={elementRef}
+          className="optional-modules-section__visual"
+        >
 
-          <OptionalModulesAnimation />
+          <OptionalModulesAnimation
+            isActive={
+              isInView
+            }
+          />
 
         </div>
 
@@ -59,6 +81,7 @@ function OptionalModulesSection() {
         </div>
 
       </div>
+
     </section>
   );
 }
